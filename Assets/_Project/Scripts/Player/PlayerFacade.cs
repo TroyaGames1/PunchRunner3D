@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Dreamteck.Splines;
+using UnityEngine;
 using Zenject;
 
 namespace PlayerBehaviors
@@ -29,7 +30,9 @@ namespace PlayerBehaviors
 
 
         public Rigidbody Rigidbody => _model.RigidBody;
-        
+
+        public SplineFollower SplineFollower => _model.SplineFollower;
+
 
     }
 

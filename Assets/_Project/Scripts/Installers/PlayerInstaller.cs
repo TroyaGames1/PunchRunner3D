@@ -1,4 +1,5 @@
 using System;
+using Dreamteck.Splines;
 using PlayerBehaviors;
 using PlayerState;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Installers
         public override void InstallBindings()
         {
             Container.Bind<Player>().AsSingle()
-                .WithArguments(_settings.Rigidbody,_settings.Animator);
+                .WithArguments(_settings.Rigidbody,_settings.Animator,_settings.SplineFollower);
         
             StateManagerInstall();
         
@@ -38,6 +39,7 @@ namespace Installers
         {
             public Rigidbody Rigidbody;
             public Animator Animator;
+            public SplineFollower SplineFollower;
         }
     }
 }

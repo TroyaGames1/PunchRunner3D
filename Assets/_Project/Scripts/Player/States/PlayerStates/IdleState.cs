@@ -5,16 +5,16 @@ namespace PlayerState
 {
     public class IdleState : IState
     { 
-        readonly UIManager.Settings _UISettings;
+        readonly UIManager _uıManager;
 
-        IdleState(UIManager.Settings _uı)
+        IdleState(UIManager _uı)
         {
-            _UISettings = _uı;
+            _uıManager = _uı;
         }
         
         public void EnterState()
         {
-            _UISettings.PreGameUI.SetActive(true);
+            _uıManager.preGameUI.SetActive(true);
          
            
         }

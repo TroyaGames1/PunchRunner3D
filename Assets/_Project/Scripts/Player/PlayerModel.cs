@@ -1,16 +1,16 @@
-﻿using UnityEngine;
+﻿using Dreamteck.Splines;
+using UnityEngine;
 
 namespace PlayerBehaviors
 {
     public class Player
     {
-       
 
-
-        public Player(Rigidbody rigidBody, Animator animator)
+        public Player(Rigidbody rigidBody, Animator animator,SplineFollower splineFollower)
         {
             RigidBody = rigidBody;
             GetAnimator  = animator;
+            SplineFollower = splineFollower;
         }
 
 
@@ -21,7 +21,7 @@ namespace PlayerBehaviors
             get; set;
         }
 
-        public Animator GetAnimator { get; }
+        public readonly Animator GetAnimator;
 
 
 
@@ -44,13 +44,15 @@ namespace PlayerBehaviors
         {
             RigidBody.AddForce(force);
         }
-        
 
-        public Rigidbody RigidBody {get;}
 
-      
+        public readonly Rigidbody RigidBody;
 
-       
+        public readonly SplineFollower SplineFollower;
+
+
+
+
     }
 }
     

@@ -7,17 +7,18 @@ namespace Miscs
     {
         UIManager(Settings settings)
         {
-            PreGameUI = settings.PreGameUI;
-            InGameUI = settings.InGameUI;
-            PreGameUI = settings.PreGameUI;
-            PreGameUI = settings.PreGameUI;
+            preGameUI = settings.PreGameUI;
+            ınGameUI = settings.InGameUI;
+            preGameUI = settings.PreGameUI;
+            preGameUI = settings.PreGameUI;
            
         }
 
-        public GameObject PreGameUI { get; }
-        public GameObject InGameUI { get; }
-        public GameObject DeadUI { get; }
-        public GameObject FinishGameUI { get; }
+        public readonly GameObject preGameUI;
+        public readonly GameObject ınGameUI;
+        public readonly GameObject deadUI;
+        public readonly GameObject finishGameUI;
+        
         [Serializable]
         public class Settings
         {
