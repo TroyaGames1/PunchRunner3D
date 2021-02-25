@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 560813557874124784}
+  - component: {fileID: 3990315697951713941}
+  - component: {fileID: 3419571439007200733}
   m_Layer: 0
   m_Name: EngelRed
-  m_TagString: Untagged
+  m_TagString: Obstacle/Collision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,12 +29,85 @@ Transform:
   m_LocalPosition: {x: 10.965432, y: 0.7504697, z: 3.4464417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7009545986529792643}
   - {fileID: 2341611408893779172}
   - {fileID: 7484529427401453391}
   - {fileID: 5883932516370091153}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3990315697951713941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117563854060580038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f993c3bd6e7a2b64091d67c80a6ee376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health:
+    value: 7
+  _textMesh: {fileID: 0}
+--- !u!65 &3419571439007200733
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117563854060580038}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7713852, y: 2.118434, z: 1.0366077}
+  m_Center: {x: -17.925995, y: 7.6732087, z: -6.275915}
+--- !u!1 &2259289326381004126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7009545986529792643}
+  - component: {fileID: 5477256582602591065}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Obstacle/Trigger
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7009545986529792643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2259289326381004126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 560813557874124784}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5477256582602591065
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2259289326381004126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4227848, y: 2.0417118, z: 0.9291382}
+  m_Center: {x: -18.475986, y: 7.667468, z: -6.288927}
 --- !u!1001 &2879394827338840847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,7 +117,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ea6f59a989ca1ee4aabaf5672018d2f8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea6f59a989ca1ee4aabaf5672018d2f8, type: 3}
       propertyPath: m_LocalScale.x
@@ -120,7 +195,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ea6f59a989ca1ee4aabaf5672018d2f8, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea6f59a989ca1ee4aabaf5672018d2f8, type: 3}
       propertyPath: m_LocalScale.x
@@ -198,7 +273,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ea6f59a989ca1ee4aabaf5672018d2f8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea6f59a989ca1ee4aabaf5672018d2f8, type: 3}
       propertyPath: m_LocalScale.x

@@ -28,6 +28,8 @@ namespace Installers
         private void InstallPlayerHandlers()
         {
             Container.Bind<PlayerObservables>().AsSingle();
+            Container.BindInterfacesTo<PlayerColliderHandler>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerMoveHandler>().AsSingle();
         }
         void StateManagerInstall()
         {
