@@ -14,7 +14,7 @@ namespace PlayerState
         
         public void EnterState()
         {
-            _UISettings._gamePreUI.SetActive(true);
+            _UISettings.PreGameUI.SetActive(true);
          
            
         }

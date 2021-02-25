@@ -13,10 +13,16 @@ namespace Installers
         public UIManager.Settings _UISettings;
         public override void InstallBindings()
         {
-            GameSignalsInstaller.Install(Container); //Signal Containerini yükle
-            
-            Container.BindInstance(_UISettings).AsSingle();
+            GameSignalsInstaller.Install(Container); 
+            InstallSettingsInstances();
+
+            Container.Bind<UIManager>().AsSingle();
             Container.BindInterfacesTo<LevelLoader>().AsSingle();
+        }
+
+        public void InstallSettingsInstances()
+        {
+            Container.BindInstance(_UISettings).AsSingle().WhenInjectedInto<UIManager>();
         }
 
    

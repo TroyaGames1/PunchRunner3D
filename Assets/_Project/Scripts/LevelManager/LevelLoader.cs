@@ -21,7 +21,7 @@ public class LevelLoader: IInitializable
         _currentLevel= PlayerPrefs.GetInt("CurrentLevel");
         if (SceneManager.GetActiveScene().buildIndex==_currentLevel)
         {
-            _signal.Fire<StartSignal>();
+         //   _signal.Fire<StartSignal>(); //TODO
             return;
         }
         SceneManager.LoadScene(_currentLevel);
