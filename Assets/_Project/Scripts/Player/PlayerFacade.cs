@@ -25,6 +25,7 @@ namespace PlayerBehaviors
 
         public Quaternion Rotation => _model.Rotation;
 
+        public GameObject GO => _model.GO;
 
         public Animator Animator => _model.GetAnimator;
 

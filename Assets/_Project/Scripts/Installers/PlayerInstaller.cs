@@ -21,9 +21,14 @@ namespace Installers
                 .WithArguments(_settings.Rigidbody,_settings.Animator,_settings.SplineFollower);
         
             StateManagerInstall();
+            InstallPlayerHandlers();
         
         }
 
+        private void InstallPlayerHandlers()
+        {
+            Container.Bind<PlayerObservables>().AsSingle();
+        }
         void StateManagerInstall()
         {
             Container.BindInterfacesAndSelfTo<PlayerStateManager>().AsSingle();

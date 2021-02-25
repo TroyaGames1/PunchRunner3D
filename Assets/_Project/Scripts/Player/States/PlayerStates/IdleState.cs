@@ -1,26 +1,40 @@
-﻿using Miscs;
+﻿using System;
+using Miscs;
+using PlayerBehaviors;
+using UniRx;
 
 
 namespace PlayerState
 {
-    public class IdleState : IState
+    public class IdleState : IState,IDisposable
     { 
         readonly UIManager _uıManager;
+        private readonly PlayerObservables _observables;
+        private readonly PlayerStateManager _stateManager;
 
-        IdleState(UIManager _uı)
+        private readonly CompositeDisposable _disposable = new CompositeDisposable();
+
+        IdleState(UIManager _uı,PlayerObservables observables,PlayerStateManager stateManager)
         {
             _uıManager = _uı;
+            _observables=observables;
+            _stateManager = stateManager;
+
         }
         
         public void EnterState()
         {
             _uıManager.preGameUI.SetActive(true);
-         
-           
+
+            _observables.InputObservable.Where(x => x.Length > 0)
+                .Subscribe(x => _stateManager.ChangeState(PlayerStateManager.PlayerStates.RunningState))
+                .AddTo(_disposable);
+
         }
 
         public void ExitState()
         {
+            _uıManager.preGameUI.SetActive(false);
         }
 
    
@@ -32,6 +46,11 @@ namespace PlayerState
         public void Update()
         {
          
+        }
+
+        public void Dispose()
+        {
+            _disposable?.Dispose();
         }
     }
 
