@@ -14,7 +14,8 @@ public class ObstacleFacade : MonoBehaviour
 
     private void Awake()
     {
-        _health.SubscribeToText(_textMesh);
+      //  _health.SubscribeToText(_textMesh);
+    
     }
 
     private void OnTriggerEnter(Collider other)
