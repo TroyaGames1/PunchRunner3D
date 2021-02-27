@@ -30,15 +30,14 @@ namespace PlayerBehaviors
         public void Initialize()
         {
           
-            _observables.PlayerTriggerStayObservable.Where(x => x.gameObject.CompareTag("Obstacle/Trigger"))
-                .Subscribe(x =>
-                {
-                    ChangeState(StateENUM.INTRIGGER);
-                });
-           
+         //   _observables.PlayerTriggerStayObservable.Where(x => x.gameObject.CompareTag("Obstacle/Trigger"))
+         //       .Subscribe(x =>
+         //       {
+         //           ChangeState(StateENUM.INTRIGGER);
+         //       });
+         //  
             
-            _tickableManager.TickStream.Select(x => _stateEnum)
-                .Where(x => x == StateENUM.INTRIGGER)
+            _tickableManager.TickStream
                 .Subscribe(x =>
                 {
                     CheckRayCast();
@@ -49,10 +48,7 @@ namespace PlayerBehaviors
 
         private void CheckRayCast()
         {
-            if (CanMove)
-            {
-                ChangeState(StateENUM.WALK);
-            }
+            ChangeState(CanMove ? StateENUM.WALK : StateENUM.INTRIGGER);
         }
         
 
@@ -87,12 +83,12 @@ namespace PlayerBehaviors
 
         private bool CanMove => !RayCastForward&& !RayCastRight && !RayCastLeft;
         private bool RayCastForward=>  Physics.Raycast(_player.Position, 
-            _player.GO.transform.forward, 5f,_settings.Layer);
+            _player.GO.transform.forward, 0.25f,_settings.Layer);
        
         private bool RayCastRight=>Physics.Raycast(_player.Position+Vector3.forward/5, 
-            _player.GO.transform.forward, 5f,_settings.Layer);
+            _player.GO.transform.forward, 0.25f,_settings.Layer);
         private bool RayCastLeft=>Physics.Raycast(_player.Position-Vector3.forward/5, 
-            _player.GO.transform.forward, 5f,_settings.Layer);
+            _player.GO.transform.forward, 0.25f,_settings.Layer);
        
 
         #endregion

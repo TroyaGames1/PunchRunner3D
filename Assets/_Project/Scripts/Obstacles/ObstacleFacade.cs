@@ -1,22 +1,23 @@
-﻿using System;
-using RayFire;
+﻿using RayFire;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ObstacleFacade : MonoBehaviour
 {
     public ReactiveProperty<int> health;
     public float _hitTime = 0.5f;
     [SerializeField] private TextMeshProUGUI _textMesh;
+    [SerializeField] private LayerMask _layerMask;
     private HitState _hitState;
     private RayfireRigid _rayfireRigid;
-    [SerializeField] private LayerMask _layerMask;
-
     
-    RaycastHit hit;
-
+    
+    private enum HitState
+    {
+        AWAKE,
+        HIT
+    }
     private void Awake()
     {
         health.SubscribeToText(_textMesh).AddTo(this);
@@ -39,7 +40,6 @@ public class ObstacleFacade : MonoBehaviour
             }
             else if (_hitTime <= 0)
             {
-                Debug.Log(hit.collider.gameObject.name);
                 TakeDamage();
                 _hitTime = 0.5f;
             }
@@ -60,12 +60,9 @@ public class ObstacleFacade : MonoBehaviour
         }
     }
 
-    private bool CheckRayCast()
-    {
-
-        return _hitState == HitState.HIT & Physics.Raycast(transform.position,
-            transform.forward, out hit,3 , _layerMask);
-    }
+    private bool CheckRayCast()=>_hitState == HitState.HIT & Physics.Raycast(transform.position,
+        transform.forward,1 , _layerMask);
+   
 
 
     private void OnTriggerEnter(Collider other)
@@ -77,9 +74,5 @@ public class ObstacleFacade : MonoBehaviour
     
 
 
-    private enum HitState
-    {
-        AWAKE,
-        HIT
-    }
+    
 }
