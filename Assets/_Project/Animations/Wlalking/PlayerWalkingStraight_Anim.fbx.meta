@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 32f44b3ae3c2ac447b1c2dddb4f2ca94
+guid: 3c0a6e4645e9bcb40aa2c114b58af018
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: PlayerIdle
+    second: PlayerWalkingStraight
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,13 +35,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PlayerIdle
+      name: PlayerWalkingStraight
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 41
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -25
       level: 0
       cycleOffset: 0
       loop: 0
@@ -51,7 +51,7 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0

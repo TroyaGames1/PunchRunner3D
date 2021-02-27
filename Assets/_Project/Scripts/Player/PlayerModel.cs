@@ -35,8 +35,8 @@ namespace PlayerBehaviors
 
         public Vector3 Position
         {
-            get => RigidBody.position;
-            set => RigidBody.position = value;
+            get => RigidBody.gameObject.transform.position;
+            set => RigidBody.gameObject.transform.position = value;
         }
 
         public GameObject GO => RigidBody.gameObject;
@@ -47,8 +47,7 @@ namespace PlayerBehaviors
             RigidBody.AddForce(force);
         }
 
-
-        private GameObject _go;
+        
         public readonly Rigidbody RigidBody;
 
         public readonly SplineFollower SplineFollower;

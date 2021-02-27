@@ -934,6 +934,7 @@ namespace RayFire
                 rfScr.meshFilter.sharedMesh      = meshes[i];
                 rfScr.meshFilter.sharedMesh.name = baseName + i;
                 rfScr.rootParent                 = rootChild;
+                
 
                 // Copy properties from parent to fragment node
                 CopyPropertiesTo (rfScr);

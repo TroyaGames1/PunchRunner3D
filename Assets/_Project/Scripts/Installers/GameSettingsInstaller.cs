@@ -1,4 +1,5 @@
 using System;
+using PlayerBehaviors;
 using UnityEngine;
 using Zenject;
 
@@ -16,14 +17,15 @@ namespace Installers
     ///
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
 {
+
+    [SerializeField] private  PlayerSettings Player;
    
-    ///PlayerSettings Player;
     ///EnemySettings Enemy;
    
     [Serializable]
     public class PlayerSettings
     {
-        //Player Classındaki açılan settings classları buraya yüklenecek
+        public PlayerColliderHandler.Settings ColliderSettings;
     }
     [Serializable]
     public class EnemySettings
@@ -33,7 +35,7 @@ namespace Installers
     
     public override void InstallBindings()
     {
-        /// Container.BindInstance(Player.tunables).AsSingle(); gibi burada  classların içi yüklenecek
+        Container.BindInstance(Player.ColliderSettings).AsSingle();
 
 
     }

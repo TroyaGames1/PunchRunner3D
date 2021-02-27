@@ -1,4 +1,5 @@
-﻿using Dreamteck.Splines;
+﻿using System;
+using Dreamteck.Splines;
 using UnityEngine;
 using Zenject;
 
@@ -34,7 +35,7 @@ namespace PlayerBehaviors
 
         public SplineFollower SplineFollower => _model.SplineFollower;
 
-
+    
     }
 
 

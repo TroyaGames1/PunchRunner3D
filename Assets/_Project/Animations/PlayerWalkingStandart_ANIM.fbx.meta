@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 32f44b3ae3c2ac447b1c2dddb4f2ca94
+guid: 3577e4c386403924c95ef8bdf893e902
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: PlayerIdle
+    second: mixamo.com
+  - first:
+      74: 4865601537202812054
+    second: PlayerStandartRun
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -19,7 +22,13 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
+      : position error = 11.568972 mm\n\t'mixamorig:LeftLeg' : position error = 9.673326
+      mm\n\t'mixamorig:LeftFoot' : position error = 28.193937 mm\n\t'mixamorig:RightUpLeg'
+      : position error = 12.264144 mm\n\t'mixamorig:RightLeg' : position error =
+      9.032255 mm\n\t'mixamorig:RightFoot' : position error = 28.505447 mm\n\t'mixamorig:RightToeBase'
+      : position error = 4.056917 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -35,11 +44,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PlayerIdle
+      name: PlayerStandartRun
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -48,7 +57,7 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1

@@ -1,31 +1,40 @@
-﻿using UniRx;
+﻿using PlayerState;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace PlayerBehaviors
 { 
-    public class PlayerMoveHandler: IInitializable, ITickable
+    public class PlayerMoveHandler: IInitializable
     {
         private readonly Player _player;
         private readonly PlayerObservables _observables;
-        private Vector3 targetPos;
+        private TickableManager _tickableManager;
 
-        PlayerMoveHandler(Player player,PlayerObservables observables)
+        PlayerMoveHandler(Player player,PlayerObservables observables, TickableManager tickableManager)
         {
             _player = player;
             _observables = observables;
+            _tickableManager = tickableManager;
         }
 
 
         public void Initialize()
         {
             _observables.InputObservable.Subscribe(CheckInputs);
+          
+           _observables.PlayerStateoObservable.Where(x=>x== PlayerStateManager.PlayerStates.RunningState)
+               .Subscribe(x=>  {
+                       {
+                           _player.SplineFollower.followSpeed = 2;
+                       }
+                   }
+               );
+
+
         }
         
-        public void Tick()
-        {
-            _player.Position = Vector3.Lerp(_player.Position, targetPos, 3*Time.deltaTime);
-        }
+   
 
         void CheckInputs(Touch[] touches)
         {
@@ -33,17 +42,16 @@ namespace PlayerBehaviors
 
             switch (touch.phase)
             {
-                case TouchPhase.Began:
-                    break;
+            
                 case TouchPhase.Moved:
-                    
-                    targetPos= new Vector3(_player.Position.x,
-                        _player.Position.y , _player.Position.z + (touch.deltaPosition.x * 0.025f));
+                    _player.Position = new Vector3(_player.Position.x,
+                        _player.Position.y , _player.Position.z - touch.deltaPosition.x *Time.deltaTime*1);
                     break;
                 
             }
         }
 
+        
         
     }
 }

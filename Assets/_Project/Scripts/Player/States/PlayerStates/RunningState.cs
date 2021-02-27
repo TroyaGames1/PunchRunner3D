@@ -6,6 +6,7 @@ namespace PlayerState
     public class RunningState : IState
     {
         private readonly Player _player;
+        private float mah;
 
         RunningState(Player player)
         {
