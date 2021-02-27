@@ -5,7 +5,7 @@ using Zenject;
 
 namespace PlayerBehaviors
 { 
-    public class PlayerMoveHandler: IInitializable
+    public class PlayerMoveHandler: IInitializable, IFixedTickable
     {
         private readonly Player _player;
         private readonly PlayerObservables _observables;
@@ -23,13 +23,13 @@ namespace PlayerBehaviors
         {
             _observables.InputObservable.Subscribe(CheckInputs);
           
-           _observables.PlayerStateoObservable.Where(x=>x== PlayerStateManager.PlayerStates.RunningState)
-               .Subscribe(x=>  {
-                       {
-                           _player.SplineFollower.followSpeed = 2;
-                       }
-                   }
-               );
+         // _observables.PlayerStateoObservable.Where(x=>x== PlayerStateManager.PlayerStates.RunningState)
+         //     .Subscribe(x=>  {
+         //             {
+         //                 _player.SplineFollower.followSpeed = 2;
+         //             }
+         //         }
+         //     );
 
 
         }
@@ -45,14 +45,20 @@ namespace PlayerBehaviors
             
                 case TouchPhase.Moved:
                     _player.Position = new Vector3(_player.Position.x,
-                        _player.Position.y , _player.Position.z - touch.deltaPosition.x *Time.deltaTime*1);
+                        _player.Position.y , _player.Position.z - touch.deltaPosition.x *Time.deltaTime*0.1f);
                     break;
                 
             }
         }
 
-        
-        
+
+        public void FixedTick()
+        {
+            var clampPos = Mathf.Clamp(_player.Position.z, -1.30f, 1.30f);
+            _player.Position = new Vector3(_player.Position.x, _player.Position.y, clampPos);
+            _player.RigidBody.velocity=Vector3.zero;
+            _player.RigidBody.angularVelocity=Vector3.zero;
+        }
     }
 }
 

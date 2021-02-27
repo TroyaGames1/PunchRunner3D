@@ -12,6 +12,10 @@ public class ObstacleFacade : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textMesh;
     private HitState _hitState;
     private RayfireRigid _rayfireRigid;
+    [SerializeField] private LayerMask _layerMask;
+
+    
+    RaycastHit hit;
 
     private void Awake()
     {
@@ -35,6 +39,7 @@ public class ObstacleFacade : MonoBehaviour
             }
             else if (_hitTime <= 0)
             {
+                Debug.Log(hit.collider.gameObject.name);
                 TakeDamage();
                 _hitTime = 0.5f;
             }
@@ -57,8 +62,9 @@ public class ObstacleFacade : MonoBehaviour
 
     private bool CheckRayCast()
     {
-        return _hitState==HitState.HIT && Physics.Raycast(transform.position, 
-            transform.forward, 15);
+
+        return _hitState == HitState.HIT & Physics.Raycast(transform.position,
+            transform.forward, out hit,3 , _layerMask);
     }
 
 
@@ -66,6 +72,9 @@ public class ObstacleFacade : MonoBehaviour
     {
         _hitState = HitState.HIT;
     }
+
+    
+    
 
 
     private enum HitState
