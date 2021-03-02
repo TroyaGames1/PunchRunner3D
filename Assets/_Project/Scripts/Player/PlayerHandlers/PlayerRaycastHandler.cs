@@ -4,32 +4,50 @@
     using UnityEngine;
     using Zenject;
     using System;
+    using UniRx;
 
-    public class PlayerRaycastHandler
+    public class PlayerRaycastHandler: IInitializable
     {
         private readonly SignalBus _signalBus;
         private readonly Player _player;
         private readonly Settings _settings;
+        private readonly TickableManager _tickableManager;
+
         private StateENUM _stateEnum;
 
-        public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings)
-        {
-            _player = player;
-            _signalBus = signalBus;
-            _settings = settings;
-        }
+
+        private bool _canCheckRaycast;
 
         private enum StateENUM
         {
             WALKING,
             PUNCHING
         }
-        
-        public void CheckRayCasts()
+      
+
+        public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings, TickableManager tickableManager)
         {
-            ChangeState(CanMove ? StateENUM.WALKING : StateENUM.PUNCHING);
-            
+            _player = player;
+            _signalBus = signalBus;
+            _settings = settings;
+            _tickableManager = tickableManager;
+
+         
         }
+        
+        public void Initialize()
+        {
+            
+            _tickableManager.TickStream.Where(x => _canCheckRaycast).Subscribe(x =>
+            {
+                CheckRayCasts();
+            });
+            _signalBus.Subscribe<SignalStartRaycasting>(() => _canCheckRaycast=true);
+        }
+
+       
+
+        private void CheckRayCasts()=> ChangeState(CanMove ? StateENUM.WALKING : StateENUM.PUNCHING);
         
         private void ChangeState(StateENUM stateEnum)
         {
@@ -44,6 +62,7 @@
             {
                 case StateENUM.WALKING:
                     _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("WALK", 2));
+                    _canCheckRaycast = false;
                     break;
                 case StateENUM.PUNCHING:
                     _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("PUNCH", 0));
@@ -55,12 +74,12 @@
 
         private bool CanMove => !RayCastForward&& !RayCastRight && !RayCastLeft;
         private bool RayCastForward=>  Physics.Raycast(_player.Position, 
-            _player.GO.transform.forward, 0.25f,_settings.RaycastLayer);
+            _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
        
         private bool RayCastRight=>Physics.Raycast(_player.Position+Vector3.forward/5, 
-            _player.GO.transform.forward, 0.25f,_settings.RaycastLayer);
+            _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
         private bool RayCastLeft=>Physics.Raycast(_player.Position-Vector3.forward/5, 
-            _player.GO.transform.forward, 0.25f,_settings.RaycastLayer);
+            _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
        
 
         #endregion
@@ -72,6 +91,7 @@
         }
 
 
+    
     }
     
 

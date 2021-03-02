@@ -29,8 +29,8 @@ namespace Installers
         {
             Container.Bind<PlayerObservables>().AsSingle();
             Container.BindInterfacesTo<PlayerColliderHandler>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerRaycastHandler>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerMoveHandler>().AsSingle();
+            Container.BindInterfacesTo<PlayerRaycastHandler>().AsSingle();
+            Container.BindInterfacesTo<PlayerMoveHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerAnimationHandler>().AsSingle();
         }
         void StateManagerInstall()

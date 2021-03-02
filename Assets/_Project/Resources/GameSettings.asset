@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   Player:
-    ColliderSettings:
-      Layer:
+    RaycastSettings:
+      RaycastLayer:
         serializedVersion: 2
         m_Bits: 256

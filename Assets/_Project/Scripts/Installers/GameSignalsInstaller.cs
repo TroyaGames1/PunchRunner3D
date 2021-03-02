@@ -11,6 +11,7 @@ namespace Installers
         
         
             SignalBusInstaller.Install(Container); //Signal birimi extenjecte eklendi
+            Container.DeclareSignal<SignalStartRaycasting>().OptionalSubscriber();
             Container.DeclareSignalWithInterfaces<SignalChangeSpeedAndAnimation>().OptionalSubscriber();
 
         }

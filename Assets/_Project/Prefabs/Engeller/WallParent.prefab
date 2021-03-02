@@ -45,6 +45,14 @@ PrefabInstance:
       propertyPath: _layerMask.m_Bits
       value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 1700788900158913638, guid: 1d6d50d96f6e57b439851123d9a54eab, type: 3}
+      propertyPath: demolitionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700788900158913638, guid: 1d6d50d96f6e57b439851123d9a54eab, type: 3}
+      propertyPath: simulationType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3539669023461556851, guid: 1d6d50d96f6e57b439851123d9a54eab, type: 3}
       propertyPath: m_Name
       value: Red
@@ -122,6 +130,14 @@ PrefabInstance:
     - target: {fileID: 802465051818854903, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
       propertyPath: _layerMask.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140540541595224836, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
+      propertyPath: demolitionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140540541595224836, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
+      propertyPath: simulationType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2796159433901857485, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
       propertyPath: m_Layer
@@ -261,6 +277,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5960216174797609243, guid: 58e01102e2852514aade2ba779db761d, type: 3}
+      propertyPath: demolitionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5960216174797609243, guid: 58e01102e2852514aade2ba779db761d, type: 3}
+      propertyPath: simulationType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58e01102e2852514aade2ba779db761d, type: 3}
 --- !u!4 &8273381165672146692 stripped
@@ -278,6 +302,14 @@ PrefabInstance:
     - target: {fileID: 802465051818854903, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
       propertyPath: _layerMask.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140540541595224836, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
+      propertyPath: demolitionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140540541595224836, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
+      propertyPath: simulationType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2796159433901857485, guid: 459b20a4a2a9e93409c9283429c36851, type: 3}
       propertyPath: m_Layer

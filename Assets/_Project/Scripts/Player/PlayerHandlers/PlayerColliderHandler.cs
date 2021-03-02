@@ -1,40 +1,34 @@
-﻿using System;
-using Events;
+﻿using Events;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace PlayerBehaviors
 {
-    public class PlayerColliderHandler: IInitializable
+    public class PlayerColliderHandler : IInitializable
     {
-        private readonly Player _player;
 
         private readonly PlayerObservables _observables;
-        private readonly PlayerRaycastHandler _raycastHandler;
-       
+        private readonly SignalBus _signalBus;
 
-        private PlayerColliderHandler(Player player, PlayerObservables observables, PlayerRaycastHandler raycastHandler)
+
+        private PlayerColliderHandler(PlayerObservables observables,
+           SignalBus signalBus)
         {
-            _player = player;
             _observables = observables;
-            _raycastHandler = raycastHandler;
+            _signalBus = signalBus;
         }
 
         public void Initialize()
         {
-            
-            _observables.PlayerTriggerStayObservable.Subscribe(x =>
+
+            _observables.PlayerTriggerEnterObservable.Subscribe(x =>
             {
-               _raycastHandler.CheckRayCasts();
+                _signalBus.Fire<SignalStartRaycasting>();
             });
+            
         }
 
-       
-
-     
-      
     }
-
 }
+ 
 

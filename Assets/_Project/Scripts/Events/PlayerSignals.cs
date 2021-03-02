@@ -24,5 +24,8 @@
         string Animation { get; }
     }
     #endregion
-   
+
+    public struct SignalStartRaycasting
+    {
+    }
 }
