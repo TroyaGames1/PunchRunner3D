@@ -32,6 +32,7 @@ namespace Installers
             Container.BindInterfacesTo<PlayerRaycastHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMoveHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerAnimationHandler>().AsSingle();
+            Container.BindInterfacesTo<PlayerHealthHandler>().AsSingle();
         }
         void StateManagerInstall()
         {

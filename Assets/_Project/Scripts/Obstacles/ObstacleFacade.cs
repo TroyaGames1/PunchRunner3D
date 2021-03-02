@@ -1,4 +1,6 @@
-﻿using RayFire;
+﻿using System;
+using System.Collections.Generic;
+using RayFire;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -11,13 +13,17 @@ public class ObstacleFacade : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textMesh;
     [SerializeField] private LayerMask _layerMask;
    
-    private RayfireRigid _rayfireRigid;
+    private List<RayfireRigid> _rayfireRigid= new List<RayfireRigid>();
     private bool _canCheckRaycast;
     
    
     private void Awake()
     {
-        _rayfireRigid = GetComponent<RayfireRigid>();
+        for (int i = 0; i < 4; i++)
+        {
+            _rayfireRigid.Add(transform.GetChild(i).GetComponent<RayfireRigid>()) ;
+        }
+        
         health.SubscribeToText(_textMesh).AddTo(this);
     }
 
@@ -54,12 +60,16 @@ public class ObstacleFacade : MonoBehaviour
 
         if (health.Value<=0)
         {
-            _rayfireRigid.Demolish();
+            foreach (var rayfire in _rayfireRigid)
+            {
+                rayfire.Demolish();
+
+            }
         }
     }
 
     private bool CanTakeHit=>
-        _canCheckRaycast && Physics.Raycast(transform.position, transform.forward,1 , _layerMask);
+        _canCheckRaycast && Physics.Raycast(transform.position, transform.forward,5 , _layerMask);
     
 
     private void OnTriggerEnter(Collider other)
@@ -67,9 +77,8 @@ public class ObstacleFacade : MonoBehaviour
         _canCheckRaycast = true;
     }
 
-    
-    
-
-
-    
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(transform.position,transform.forward,Color.red,5);
+    }
 }
