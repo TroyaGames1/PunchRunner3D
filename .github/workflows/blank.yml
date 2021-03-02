@@ -35,4 +35,15 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           - name: Checkout
+  - name: Checkout
   uses: actions/checkout@v2.3.4
+  - name: Cache
+  uses: actions/cache@v2.1.4
+  - name: Unity - Test runner
+  uses: game-ci/unity-test-runner@v2.0-alpha-3
+  - name: Unity - Builder
+  uses: game-ci/unity-builder@v2.0-alpha-6
+
+
+
+  
