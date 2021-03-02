@@ -60,7 +60,7 @@ public class ObstacleFacade : MonoBehaviour
         }
     }
 
-    private bool CheckRayCast()=>_hitState == HitState.HIT & Physics.Raycast(transform.position,
+    private bool CheckRayCast()=> Physics.Raycast(transform.position,
         transform.forward,1 , _layerMask);
    
 

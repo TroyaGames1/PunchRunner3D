@@ -25,7 +25,7 @@ namespace Installers
     [Serializable]
     public class PlayerSettings
     {
-        public PlayerColliderHandler.Settings ColliderSettings;
+        public PlayerRaycastHandler.Settings RaycastSettings;
     }
     [Serializable]
     public class EnemySettings
@@ -35,7 +35,7 @@ namespace Installers
     
     public override void InstallBindings()
     {
-        Container.BindInstance(Player.ColliderSettings).AsSingle();
+        Container.BindInstance(Player.RaycastSettings).AsSingle();
 
 
     }

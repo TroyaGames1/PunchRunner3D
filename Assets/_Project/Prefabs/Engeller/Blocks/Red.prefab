@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5268020063392616255}
   - component: {fileID: 268957867834267307}
   - component: {fileID: 1700788900158913638}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Red
   m_TagString: Obstacle/Trigger
   m_Icon: {fileID: 0}
@@ -110,8 +110,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.022560945, y: 0.02, z: 0.013995133}
-  m_Center: {x: 0.00006097207, y: 0, z: 0.01721946}
+  m_Size: {x: 0.022560945, y: 0.02, z: 0.014937061}
+  m_Center: {x: 0.000060972092, y: 0, z: 0.017690448}
 --- !u!114 &268957867834267307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   _textMesh: {fileID: 3436974810177696800}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
 --- !u!114 &1700788900158913638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialization: 0
   initialized: 0
-  simulationType: 0
+  simulationType: 1
   objectType: 0
   demolitionType: 1
   physics:
@@ -220,7 +220,7 @@ MonoBehaviour:
       sizeFilter: 0
       decompose: 0
       removeCollinear: 1
-      layer: 0
+      layer: Dynamic
     runtimeCaching:
       type: 0
       frames: 3
@@ -422,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2186588692333970946, guid: 3696533aaf06fb948980a1556656ddbe, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5063139494568728205, guid: 3696533aaf06fb948980a1556656ddbe, type: 3}
       propertyPath: m_LocalScale.x
@@ -471,6 +471,10 @@ PrefabInstance:
     - target: {fileID: 5335963148469822421, guid: 3696533aaf06fb948980a1556656ddbe, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5453085215389865280, guid: 3696533aaf06fb948980a1556656ddbe, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8239499426968840231, guid: 3696533aaf06fb948980a1556656ddbe, type: 3}
       propertyPath: m_LocalScale.x

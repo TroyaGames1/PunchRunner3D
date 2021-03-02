@@ -11,11 +11,11 @@ namespace Installers
         
         
             SignalBusInstaller.Install(Container); //Signal birimi extenjecte eklendi
-            Container.DeclareSignal<PlayerSignals>().OptionalSubscriber();
-         
+            Container.DeclareSignalWithInterfaces<SignalChangeSpeedAndAnimation>().OptionalSubscriber();
+
         }
 
-        public void InstallStateSignals()
+        public void InstallStateSignals() //TODO
         {
             Container.DeclareSignal<StartSignal>().OptionalSubscriber(); 
             Container.DeclareSignal<FailSignal>().OptionalSubscriber();
