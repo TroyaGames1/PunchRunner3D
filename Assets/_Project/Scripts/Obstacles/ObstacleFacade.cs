@@ -12,6 +12,8 @@ public class ObstacleFacade : MonoBehaviour
    
     [SerializeField] private TextMeshProUGUI _textMesh;
     [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private ParticleSystem _damageParticle;
+    
    
     private RayfireRigid _rayfireRigid;
     private bool _canCheckRaycast;
@@ -33,7 +35,7 @@ public class ObstacleFacade : MonoBehaviour
     {
         if (CanTakeHit)
         {
-            Debug.Log("VAR");
+           
             if (_hitTime > 0)
             {
                 _hitTime -= Time.deltaTime;
@@ -54,6 +56,7 @@ public class ObstacleFacade : MonoBehaviour
     private void TakeDamage()
     {
         health.Value -= 1;
+        _damageParticle.Play();
 
         if (health.Value<=0)
         {
@@ -70,8 +73,5 @@ public class ObstacleFacade : MonoBehaviour
         _canCheckRaycast = true;
     }
 
-    private void OnDrawGizmos()
-    {
-        Debug.DrawLine(transform.position,transform.forward,Color.red,5);
-    }
+   
 }

@@ -1,4 +1,5 @@
 using Miscs;
+using Sirenix.OdinInspector;
 using Zenject;
 
 namespace Installers
@@ -10,6 +11,7 @@ namespace Installers
         /// MonoBehavior olarak, sahneden verilerek yüklenecek olan şeyler burada verilecek
         /// </summary>
         
+        [TabGroup("UI Settings")]
         public UIManager.Settings _UISettings;
         public override void InstallBindings()
         {

@@ -1,21 +1,21 @@
 ﻿using PlayerBehaviors;
-using UnityEngine;
 
 namespace PlayerState
 {
     public class RunningState : IState
     {
         private readonly Player _player;
-        private float mah;
+        private readonly PlayerMoveHandler _moveHandler;
 
-        RunningState(Player player)
+        RunningState(Player player, PlayerMoveHandler moveHandler)
         {
             _player = player;
+            _moveHandler = moveHandler;
         }
 
         public void EnterState()
         {
-            _player.SplineFollower.followSpeed = 1;
+            _player.SplineFollower.followSpeed = _moveHandler.GetDefaultSpeed;
             _player.GetAnimator.Play("WALK");
 
         }
@@ -36,6 +36,8 @@ namespace PlayerState
         {
          
         }
+        
+       
     }
 
 }

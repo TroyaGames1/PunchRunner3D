@@ -1,4 +1,5 @@
-﻿using Events;
+﻿using System;
+using Events;
 using PlayerState;
 using UniRx;
 using UnityEngine;
@@ -11,14 +12,20 @@ namespace PlayerBehaviors
         private readonly Player _player;
         private readonly PlayerObservables _observables;
         private readonly SignalBus _signal;
+        private readonly Settings _settings;
+        public float GetDefaultSpeed => _settings.DefaultSpeed;
 
-        PlayerMoveHandler(Player player,PlayerObservables observables, SignalBus signal)
+    
+
+        PlayerMoveHandler(Player player,PlayerObservables observables, SignalBus signal,Settings settings)        
         {
             _player = player;
             _observables = observables;
             _signal = signal;
+            _settings = settings;
         }
 
+     
 
         public void Initialize()
         {
@@ -26,7 +33,7 @@ namespace PlayerBehaviors
             _signal.Subscribe<ISignalChangeSpeed>(x=>ChangeSpeed(x.Speed));
         }
 
-        private void ChangeSpeed(int speed)
+        private void ChangeSpeed(float speed)
         {
             _player.SplineFollower.followSpeed = speed;
         }
@@ -41,7 +48,7 @@ namespace PlayerBehaviors
 
         private void ClampPlayerHorizontalPosition()
         {
-            var clampPos = Mathf.Clamp(_player.Position.z, -1.30f, 1.30f);
+            var clampPos = Mathf.Clamp(_player.Position.z, -1.50f, 1.50f);
             _player.Position = new Vector3(_player.Position.x, _player.Position.y, clampPos);
             _player.RigidBody.velocity = Vector3.zero;
             _player.RigidBody.angularVelocity = Vector3.zero;
@@ -59,6 +66,12 @@ namespace PlayerBehaviors
                     break;
                 
             }
+        }
+        
+        [Serializable]
+        public struct Settings
+        {
+            public float DefaultSpeed;
         }
     }
 }

@@ -12,10 +12,10 @@
         private readonly Player _player;
         private readonly Settings _settings;
         private readonly TickableManager _tickableManager;
-
+        private readonly PlayerMoveHandler _moveHandler;
+       
         private StateENUM _stateEnum;
-
-
+        
         private bool _canCheckRaycast;
 
         private enum StateENUM
@@ -25,14 +25,13 @@
         }
       
 
-        public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings, TickableManager tickableManager)
+        public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings, TickableManager tickableManager, PlayerMoveHandler moveHandler)
         {
             _player = player;
             _signalBus = signalBus;
             _settings = settings;
             _tickableManager = tickableManager;
-
-         
+            _moveHandler = moveHandler;
         }
         
         public void Initialize()
@@ -42,7 +41,11 @@
             {
                 CheckRayCasts();
             });
-            _signalBus.Subscribe<SignalStartRaycasting>(() => _canCheckRaycast=true);
+            _signalBus.Subscribe<SignalStartRaycasting>(() =>
+            {
+           
+                _canCheckRaycast = true;
+            });
         }
 
        
@@ -61,7 +64,7 @@
             switch (_stateEnum)
             {
                 case StateENUM.WALKING:
-                    _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("WALK", 2));
+                    _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("WALK", _moveHandler.GetDefaultSpeed));
                     _canCheckRaycast = false;
                     break;
                 case StateENUM.PUNCHING:
@@ -69,6 +72,9 @@
                     break;
             }
         }
+
+      
+        
         
         #region Raycasts
 

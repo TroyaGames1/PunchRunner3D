@@ -30,7 +30,7 @@ namespace Installers
             Container.Bind<PlayerObservables>().AsSingle();
             Container.BindInterfacesTo<PlayerColliderHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerRaycastHandler>().AsSingle();
-            Container.BindInterfacesTo<PlayerMoveHandler>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerMoveHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerAnimationHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerHealthHandler>().AsSingle();
         }

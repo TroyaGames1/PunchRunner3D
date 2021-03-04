@@ -35,7 +35,11 @@ namespace PlayerBehaviors
 
         public SplineFollower SplineFollower => _model.SplineFollower;
 
-    
+
+        public void OnDrawGizmos()
+        {
+            Debug.DrawRay(transform.position,transform.forward,Color.red,25);
+        }
     }
 
 

@@ -1,5 +1,7 @@
 using System;
+using Miscs;
 using PlayerBehaviors;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -15,18 +17,38 @@ namespace Installers
     /// </summary>
     ///
     ///
+    /// 
+    [InlineEditor()] 
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
 {
-
-    [SerializeField] private  PlayerSettings Player;
+    
+    [TabGroup("PlayerSettings")]
+    [HideLabel]
+    [SerializeField] 
+    private  PlayerSettings Player;
+    
+    
+    //[TabGroup("EnemySettings")]
+    //[HideLabel]
+    //[SerializeField] 
+    //private  EnemySettings enemySettings;
    
     ///EnemySettings Enemy;
    
     [Serializable]
     public class PlayerSettings
     {
+       
+        [TabGroup("RayCast Settings")]
+        [HideLabel]
         public PlayerRaycastHandler.Settings RaycastSettings;
+        
+        [TabGroup("MoveHandler Settings")]
+        [HideLabel]
+        public PlayerMoveHandler.Settings MoveHandlerSettings;
+
     }
+    
     [Serializable]
     public class EnemySettings
     {
@@ -35,7 +57,9 @@ namespace Installers
     
     public override void InstallBindings()
     {
+      
         Container.BindInstance(Player.RaycastSettings).AsSingle();
+        Container.BindInstance(Player.MoveHandlerSettings).AsSingle();
 
 
     }
