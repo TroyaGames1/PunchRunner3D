@@ -13,17 +13,13 @@ public class ObstacleFacade : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textMesh;
     [SerializeField] private LayerMask _layerMask;
    
-    private List<RayfireRigid> _rayfireRigid= new List<RayfireRigid>();
+    private RayfireRigid _rayfireRigid;
     private bool _canCheckRaycast;
     
    
     private void Awake()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            _rayfireRigid.Add(transform.GetChild(i).GetComponent<RayfireRigid>()) ;
-        }
-        
+        _rayfireRigid = GetComponent<RayfireRigid>();
         health.SubscribeToText(_textMesh).AddTo(this);
     }
 
@@ -33,38 +29,35 @@ public class ObstacleFacade : MonoBehaviour
         CheckRayCastAndTakeDamage();
     }
 
-   private void CheckRayCastAndTakeDamage()
-   {
-       if (CanTakeHit)
-       {
-           if (_hitTime > 0)
-           {
-               _hitTime -= Time.deltaTime;
-           }
-           else if (_hitTime <= 0)
-           {
-               TakeDamage();
-               _hitTime = 0.5f;
-           }
-       }
-       else if (!CanTakeHit)
-       {
-           _hitTime =  0.5f; //ScriptableObject'e aktarılabilir
-       }
-   }
+    private void CheckRayCastAndTakeDamage()
+    {
+        if (CanTakeHit)
+        {
+            Debug.Log("VAR");
+            if (_hitTime > 0)
+            {
+                _hitTime -= Time.deltaTime;
+            }
+            else if (_hitTime <= 0)
+            {
+                TakeDamage();
+                _hitTime = 0.5f;
+            }
+        }
+        else if (!CanTakeHit)
+        {
+            _hitTime =  0.5f; //ScriptableObject'e aktarılabilir
+        }
+    }
 
 
-   private void TakeDamage()
+    private void TakeDamage()
     {
         health.Value -= 1;
 
         if (health.Value<=0)
         {
-            foreach (var rayfire in _rayfireRigid)
-            {
-                rayfire.Demolish();
-
-            }
+            _rayfireRigid.Demolish();
         }
     }
 
