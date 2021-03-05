@@ -1,4 +1,7 @@
-﻿namespace PlayerBehaviors
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
+
+namespace PlayerBehaviors
 {
     using Events;
     using UnityEngine;
@@ -79,12 +82,12 @@
         #region Raycasts
 
         private bool CanMove => !RayCastForward&& !RayCastRight && !RayCastLeft;
-        private bool RayCastForward=>  Physics.Raycast(_player.Position, 
-            _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
+        private bool RayCastForward=>  Physics.Raycast(_player.Position+ 1*Vector3.up, 
+            _player.GO.transform.forward , 0.3f,_settings.RaycastLayer);
        
-        private bool RayCastRight=>Physics.Raycast(_player.Position+Vector3.forward/5, 
+        private bool RayCastRight=>Physics.Raycast(_player.Position+Vector3.forward/6 +1*Vector3.up, 
             _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
-        private bool RayCastLeft=>Physics.Raycast(_player.Position-Vector3.forward/5, 
+        private bool RayCastLeft=>Physics.Raycast(_player.Position-Vector3.forward/6 +1*Vector3.up, 
             _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
        
 

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: a1c72a11930bfe94c94bf397e398d6d7
+guid: 18cc1f4fca407574696c891fd793aee8
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -4791504522942941401
-    second: PlayerIdle
+    second: PlayerWalkingLeft
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -21,7 +21,16 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Armature|Armature|mixamo.com|Layer0' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftArm' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftForeArm' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandIndex1' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandIndex2' has translation
+      animation that will be discarded.\n\t'mixamorig:RightArm' has translation animation
+      that will be discarded.\n\t'mixamorig:RightForeArm' has translation animation
+      that will be discarded.\n\t'mixamorig:LeftToeBase' has translation animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -35,13 +44,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PlayerIdle
+      name: PlayerWalkingLeft
       takeName: Armature|Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 32
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: 25
       level: 0
       cycleOffset: 0
       loop: 0
@@ -50,7 +59,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1

@@ -19,3 +19,12 @@ MonoBehaviour:
         m_Bits: 256
     MoveHandlerSettings:
       DefaultSpeed: 3.5
+      SwerveSpeed: 0.25
+      MaxSwerveAmount: 0.75
+  obstacleSettings:
+    PunchTime:
+      defaultHitTime: 0.7
+      hitDamage: 1
+      HitLayerMask:
+        serializedVersion: 2
+        m_Bits: 512

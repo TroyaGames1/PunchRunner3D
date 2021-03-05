@@ -1,11 +1,17 @@
 fileFormatVersion: 2
-guid: a1c72a11930bfe94c94bf397e398d6d7
+guid: 8c2756a3551fddf4eae707ceb2f5a58e
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
-      74: -4791504522942941401
-    second: PlayerIdle
+      74: 3618420698690315038
+    second: Armature|Armature.001|mixamo.com|Layer0.003
+  - first:
+      74: 6141500024023750523
+    second: Armature|Armature.001|mixamo.com|Layer0.004
+  - first:
+      74: 85483252243113165
+    second: PlayerPunch
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +41,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PlayerIdle
-      takeName: Armature|Armature|mixamo.com|Layer0
+      name: PlayerPunch
+      takeName: Armature|Armature|mixamo.com|Layer0.003
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -49,7 +55,7 @@ ModelImporter:
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -551,11 +557,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8c2756a3551fddf4eae707ceb2f5a58e, type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 2
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

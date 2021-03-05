@@ -7,9 +7,9 @@ namespace PlayerBehaviors
 {
     public class PlayerFacade : MonoBehaviour
     {
-   
+
         Player _model;
-        
+
         [Inject]
         public void Construct(Player player)
         {
@@ -21,7 +21,7 @@ namespace PlayerBehaviors
         public Vector3 Position
         {
             get => _model.Position;
-            set =>_model.Position=value;
+            set => _model.Position = value;
         }
 
         public Quaternion Rotation => _model.Rotation;
@@ -38,9 +38,13 @@ namespace PlayerBehaviors
 
         public void OnDrawGizmos()
         {
-            Debug.DrawRay(transform.position,transform.forward,Color.red,25);
+            Debug.DrawRay(transform.position + 2 * Vector3.up, transform.forward, Color.red, 25);
+            Debug.DrawRay(transform.position + Vector3.forward / 5 + 2 * Vector3.up, transform.forward, Color.red, 25);
+            Debug.DrawRay(transform.position - Vector3.forward / 5 + 2 * Vector3.up, transform.forward, Color.red, 25);
+
+
         }
+
+
     }
-
-
 }

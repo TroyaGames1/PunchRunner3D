@@ -28,11 +28,22 @@ namespace Installers
     private  PlayerSettings Player;
     
     
-    //[TabGroup("EnemySettings")]
-    //[HideLabel]
-    //[SerializeField] 
-    //private  EnemySettings enemySettings;
+    [TabGroup("ObstacleSettings")]
+    [HideLabel]
+    [SerializeField] 
+    private  ObstacleSettings obstacleSettings;
    
+
+    public override void InstallBindings()
+    {
+      
+        Container.BindInstance(Player.RaycastSettings).AsSingle();
+        Container.BindInstance(Player.MoveHandlerSettings).AsSingle();
+        Container.BindInstance(obstacleSettings.PunchTime).AsSingle();
+
+
+    }
+    
     ///EnemySettings Enemy;
    
     [Serializable]
@@ -50,17 +61,10 @@ namespace Installers
     }
     
     [Serializable]
-    public class EnemySettings
+    public class ObstacleSettings
     {
-        //Enemmy Classındaki açılan settings classları buraya yüklenecek
+        [HideLabel]
+        public ObstacleFacade.Settings PunchTime;
     }
-    
-    public override void InstallBindings()
-    {
-      
-        Container.BindInstance(Player.RaycastSettings).AsSingle();
-        Container.BindInstance(Player.MoveHandlerSettings).AsSingle();
 
-
-    }
 }}
