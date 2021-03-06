@@ -1,16 +1,18 @@
 ﻿using Dreamteck.Splines;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PlayerBehaviors
 {
     public class Player
     {
 
-        public Player(Rigidbody rigidBody, Animator animator,SplineFollower splineFollower)
+        public Player(Rigidbody rigidBody, Animator animator,SplineFollower splineFollower,Slider slider)
         {
             RigidBody = rigidBody;
             GetAnimator  = animator;
             SplineFollower = splineFollower;
+            Slider = slider;
         }
 
 
@@ -52,7 +54,7 @@ namespace PlayerBehaviors
 
         public readonly SplineFollower SplineFollower;
 
-
+        public readonly Slider Slider;
 
 
     }

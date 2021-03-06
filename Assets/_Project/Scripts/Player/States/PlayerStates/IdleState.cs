@@ -26,7 +26,10 @@ namespace PlayerState
         {
             _uıManager.preGameUI.SetActive(true);
 
-            _observables.InputObservable.Where(x => x.Length > 0)
+            _observables.InputObservable
+                .Where(x => x.Length > 0 && 
+                            _stateManager.CurrentState!=PlayerStateManager.PlayerStates.DeadState
+                            && _stateManager.CurrentState!=PlayerStateManager.PlayerStates.FinishState)
                 .Subscribe(x => _stateManager.ChangeState(PlayerStateManager.PlayerStates.RunningState))
                 .AddTo(_disposable);
 

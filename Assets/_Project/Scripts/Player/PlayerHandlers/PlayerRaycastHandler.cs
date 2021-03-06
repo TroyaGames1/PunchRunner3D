@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PlayerState;
 using Sirenix.OdinInspector;
 
 namespace PlayerBehaviors
@@ -16,9 +17,10 @@ namespace PlayerBehaviors
         private readonly Settings _settings;
         private readonly TickableManager _tickableManager;
         private readonly PlayerMoveHandler _moveHandler;
+        private readonly PlayerStateManager _stateManager;
+
        
         private StateENUM _stateEnum;
-        
         private bool _canCheckRaycast;
 
         private enum StateENUM
@@ -28,30 +30,34 @@ namespace PlayerBehaviors
         }
       
 
-        public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings, TickableManager tickableManager, PlayerMoveHandler moveHandler)
+        public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings,
+            TickableManager tickableManager, PlayerMoveHandler moveHandler, PlayerStateManager stateManager)
         {
             _player = player;
             _signalBus = signalBus;
             _settings = settings;
             _tickableManager = tickableManager;
             _moveHandler = moveHandler;
+            _stateManager = stateManager;
+            
         }
         
         public void Initialize()
         {
-            
-            _tickableManager.TickStream.Where(x => _canCheckRaycast).Subscribe(x =>
+            _tickableManager.TickStream
+                .Where(x => _canCheckRaycast&&
+                            _stateManager.CurrentState==PlayerStateManager.PlayerStates.RunningState)
+                .Subscribe(x =>
             {
                 CheckRayCasts();
             });
+            
             _signalBus.Subscribe<SignalStartRaycasting>(() =>
             {
-           
                 _canCheckRaycast = true;
             });
         }
-
-       
+        
 
         private void CheckRayCasts()=> ChangeState(CanMove ? StateENUM.WALKING : StateENUM.PUNCHING);
         

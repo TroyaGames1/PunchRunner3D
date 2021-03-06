@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Dreamteck.Splines;
 using Events;
 using PlayerState;
@@ -9,11 +10,12 @@ using Zenject;
 
 namespace PlayerBehaviors
 { 
-    public class PlayerMoveHandler: IInitializable, ITickable
+    public class PlayerMoveHandler: IInitializable, ITickable, IFixedTickable
     {
         private readonly Player _player;
         private readonly PlayerObservables _observables;
         private readonly SignalBus _signal;
+        private PlayerAnimationHandler _animationHandler;
         private readonly Settings _settings;
         public float GetDefaultSpeed => _settings.DefaultSpeed;
         
@@ -22,12 +24,18 @@ namespace PlayerBehaviors
         private float _moveFactorX;
         private readonly SplineComputer _splineComputer;
 
-        private PlayerMoveHandler(Player player,PlayerObservables observables, SignalBus signal,Settings settings)        
+        private float swerveAmount;
+        private float newVector;
+
+
+        private bool _ifMoving = false;
+        private PlayerMoveHandler(Player player,PlayerObservables observables, SignalBus signal,Settings settings, PlayerAnimationHandler animationHandler)        
         {
             _player = player;
             _observables = observables;
             _signal = signal;
             _settings = settings;
+            _animationHandler = animationHandler;
             _splineComputer = _player.SplineFollower.spline;
         }
 
@@ -39,7 +47,7 @@ namespace PlayerBehaviors
             {
 
                 CheckHorizontalInputs(x);
-                MoveHorizontal();
+                
             });
             _signal.Subscribe<ISignalChangeSpeed>(x=>ChangeSpeed(x.Speed));
         }
@@ -54,12 +62,12 @@ namespace PlayerBehaviors
 
         public void Tick()
         {
-            ClampPlayerHorizontalPosition();
+            MoveHorizontal();
         }
-
-
-        
-
+        public void FixedTick()
+        {
+            ClampPlayerHorizontalPosition();
+        }   
         private void CheckHorizontalInputs(Touch[] touches)
         {
             var touch = touches[0];
@@ -72,28 +80,55 @@ namespace PlayerBehaviors
             {
                 _moveFactorX = touch.position.x - _lastFrameFingerPositionX;
                 _lastFrameFingerPositionX = touch.position.x;
+            
+
+                 swerveAmount = _settings.SwerveSpeed * _moveFactorX;
+                swerveAmount = Mathf.Clamp(swerveAmount, -_settings.MaxSwerveAmount, _settings.MaxSwerveAmount);
+                 newVector = _player.GO.transform.position.z - swerveAmount;
+                 
+                 _animationHandler.SetFloat("speed",swerveAmount*Time.deltaTime);
+                 
+                 _ifMoving = true;
+
             }
             else if (touch.phase== TouchPhase.Canceled | touch.phase==TouchPhase.Ended)
             {
                 _moveFactorX = 0f;
+                _ifMoving = false;
             }
         }
 
         private void MoveHorizontal()
         {
-            var swerveAmount = Time.deltaTime * _settings.SwerveSpeed * _moveFactorX;
-            _player.GetAnimator.SetFloat("speed",swerveAmount);
-            swerveAmount = Mathf.Clamp(swerveAmount, -_settings.MaxSwerveAmount, _settings.MaxSwerveAmount);
-            _player.GO.transform.Translate(swerveAmount, 0, 0);
+            _player.GO.transform.position = new Vector3(_player.GO.transform.position.x, _player.GO.transform.position.y,
+                Mathf.Lerp(_player.GO.transform.position.z,newVector,Time.deltaTime*3.5f));
+
+
+            if (!_ifMoving)
+            {
+                var difference = _player.GO.transform.position.z - newVector;
+                
+                if (Mathf.Abs(difference) < 0.02f)
+                {
+                    difference = 0;
+                }
+                _animationHandler.SetFloat("speed",difference/15f);
+            }
+
         }
         
         private void ClampPlayerHorizontalPosition()
         {
-            var splineWorldPos = _splineComputer.EvaluatePosition( _player.SplineFollower.result.percent); 
-            var _clampedPosition = Mathf.Clamp(_player.Position.z, splineWorldPos.z-1.50f, splineWorldPos.z+1.50f);
-            _player.Position = new Vector3(_player.Position.x, _player.Position.y, _clampedPosition);
-            _player.RigidBody.velocity = Vector3.zero;
-            _player.RigidBody.angularVelocity = Vector3.zero;
+           var splineWorldPos = _splineComputer.EvaluatePosition( _player.SplineFollower.result.percent);
+           var clampedNegative = splineWorldPos.z - 1.50f; 
+           var clampedPositive = splineWorldPos.z + 1.50f;
+           var clampedPosition = Mathf.Clamp(_player.Position.z, clampedNegative, clampedPositive);
+
+           newVector=Mathf.Clamp(newVector,clampedNegative,clampedPositive); 
+           
+          _player.Position = new Vector3(_player.Position.x, _player.Position.y, clampedPosition); 
+          _player.RigidBody.velocity = Vector3.zero; 
+          _player.RigidBody.angularVelocity = Vector3.zero;
            
 
         }
@@ -109,7 +144,7 @@ namespace PlayerBehaviors
             
             [HorizontalGroup("Group 2",0.5f,LabelWidth = 125)]
             [InfoBox("DefaultValue 0.25")]
-            [MinValue(0.25)]
+            [MinValue(0.15)]
             public float SwerveSpeed; 
             
             [HorizontalGroup("Group 2",0.5f,LabelWidth = 125)]
@@ -118,6 +153,8 @@ namespace PlayerBehaviors
             [MinValue(0.75)]
             public float MaxSwerveAmount;
         }
+
+      
     }
 }
 

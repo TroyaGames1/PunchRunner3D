@@ -1,6 +1,7 @@
 ﻿using System;
 using Dreamteck.Splines;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace PlayerBehaviors
@@ -35,6 +36,7 @@ namespace PlayerBehaviors
 
         public SplineFollower SplineFollower => _model.SplineFollower;
 
+        public Slider HPSlider => _model.Slider;
 
         public void OnDrawGizmos()
         {

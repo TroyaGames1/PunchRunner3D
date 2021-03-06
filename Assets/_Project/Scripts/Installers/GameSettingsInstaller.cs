@@ -39,6 +39,7 @@ namespace Installers
       
         Container.BindInstance(Player.RaycastSettings).AsSingle();
         Container.BindInstance(Player.MoveHandlerSettings).AsSingle();
+        Container.BindInstance(Player.healthProjectSettings).AsSingle();
         Container.BindInstance(obstacleSettings.PunchTime).AsSingle();
 
 
@@ -58,6 +59,10 @@ namespace Installers
         [HideLabel]
         public PlayerMoveHandler.Settings MoveHandlerSettings;
 
+        [TabGroup("Health Settings")]
+        [HideLabel]
+        public PlayerHealthHandler.ProjectSettings healthProjectSettings;
+        
     }
     
     [Serializable]

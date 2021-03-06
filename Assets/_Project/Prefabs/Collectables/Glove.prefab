@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 3053611812326462668}
   - component: {fileID: 2148006289646082921}
   - component: {fileID: 4191645222368194467}
-  m_Layer: 0
+  - component: {fileID: 4564468365842832840}
+  - component: {fileID: 1670807585}
+  - component: {fileID: 7451683676496707703}
+  m_Layer: 8
   m_Name: Glove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2390086967918825078}
-  m_LocalRotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.28, y: 1.803, z: 0.9462993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -81,3 +84,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4564468365842832840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2390086967918825078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9713c242cc613c94fa9579689c3c2058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealtValue: 0.5
+--- !u!114 &1670807585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2390086967918825078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afdae7b6a3bbf6b4ba63b94bf18baec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canMove: 0
+  _canRotate: 1
+  _canScale: 0
+  _reverse: 0
+  _moveTo: 0
+  _moveDuration: 0
+  _rotateTo: {x: 0, y: 360, z: 0}
+  _rotateDuration: 2
+  _scaleTo: {x: 0, y: 0, z: 0}
+  _scaleDuration: 0
+  _easeType: 1
+--- !u!65 &7451683676496707703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2390086967918825078}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48232347, y: 0.8057894, z: 0.5614424}
+  m_Center: {x: -0.015296549, y: 0.10073343, z: -0.0022094697}

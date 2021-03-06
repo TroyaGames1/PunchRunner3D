@@ -1,6 +1,7 @@
 ﻿namespace Events
 {
-  
+
+    #region GameSignals
 
     #region SignalChangeSpeedAndAnimation
 
@@ -28,4 +29,20 @@
     public struct SignalStartRaycasting
     {
     }
+
+    public struct SignalPlayerHit
+    {
+        public SignalPlayerHit(float value)
+        {
+            Value = value;
+        }
+
+        public float Value { get; }
+   }
+    
+    public struct SignalDoShake{}
+    
+    
+    #endregion
+  
 }
