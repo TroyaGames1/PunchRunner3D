@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Events;
+using MoreMountains.NiceVibrations;
 using RayFire;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -9,30 +11,44 @@ using Zenject;
 
 public class ObstacleFacade : MonoBehaviour
 {
+    private Settings _settings;
+    private SignalBus _signalBus;
     public ReactiveProperty<float> health;
     [SerializeField] private TextMeshProUGUI _textMesh;
     [SerializeField] private ParticleSystem _damageParticle;
+    private Transform _rayfireBody;
+    private MeshRenderer _meshRenderer;
+    private BoxCollider[] _colliders;
     
-   
-    private RayfireRigid _rayfireRigid;
     private bool _canCheckRaycast;
     private float _currentHitTime;
-    private Settings _settings;
 
+
+    private TraumaInducer _traumaInducer;
     [Inject]
-    public void Constructor(Settings settings)
+    public void Constructor(Settings settings,SignalBus signalBus)
     {
         _settings = settings;
+        _signalBus = signalBus;
         _currentHitTime = _settings.defaultHitTime;
     }
 
     
     private void Awake()
     {
-        _rayfireRigid = GetComponent<RayfireRigid>();
         health.SubscribeToText(_textMesh).AddTo(this);
+        _traumaInducer = GetComponent<TraumaInducer>();
+        FindObjectComponents();
+     
     }
 
+    void FindObjectComponents()
+    {
+        _rayfireBody = transform.GetChild(0).transform;
+        _meshRenderer = GetComponent<MeshRenderer>();
+        _colliders = GetComponents<BoxCollider>();
+        
+    }
 
     private void FixedUpdate()
     {
@@ -41,35 +57,54 @@ public class ObstacleFacade : MonoBehaviour
 
     private void CheckRayCastAndTakeDamage()
     {
-        if (CanTakeHit)
+        switch (CanTakeHit)
         {
-           
-            if (_currentHitTime> 0)
-            {
+            case true when _currentHitTime> 0:
                 _currentHitTime -= Time.deltaTime;
-            }
-            else if (_currentHitTime <= 0)
+                break;
+            case true:
             {
-                TakeDamage();
-                _currentHitTime = _settings.defaultHitTime;
+                if (_currentHitTime <= 0)
+                {
+                    TakeDamage();
+                    _signalBus.Fire(new SignalPlayerHit(-0.1f));
+                    _signalBus.Fire(new SignalDoShake());
+                    _currentHitTime = _settings.defaultHitTime;
+                }
+
+                break;
             }
-        }
-        else if (!CanTakeHit)
-        {
-            _currentHitTime =  _settings.defaultHitTime;
+            case false:
+                _currentHitTime =  _settings.defaultHitTime;
+                break;
         }
     }
 
 
     private void TakeDamage()
     {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact,true);
+        
         health.Value -= _settings.hitDamage;
         _damageParticle.Play();
 
         if (health.Value<=0)
         {
-            _rayfireRigid.Demolish();
+          DisableThisObject();
+          
         }
+    }
+
+    void DisableThisObject()
+    {
+        _meshRenderer.enabled = false;
+        _textMesh.gameObject.SetActive(false);
+        foreach (var boxCollider in _colliders)
+        {
+            boxCollider.enabled = false;
+        }
+        _rayfireBody.gameObject.SetActive(true);
+         enabled = false;
     }
 
     private bool CanTakeHit=>

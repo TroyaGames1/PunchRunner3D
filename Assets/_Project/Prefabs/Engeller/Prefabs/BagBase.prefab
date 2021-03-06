@@ -361,11 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     value: 5
-  _hitTime: 0.5
   _textMesh: {fileID: 1523060252108852090}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 512
   _damageParticle: {fileID: 7327445938199796278}
 --- !u!114 &1523060251837990897
 MonoBehaviour:
