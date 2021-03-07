@@ -1,4 +1,6 @@
-﻿namespace Events
+﻿using PlayerBehaviors;
+
+namespace Events
 {
 
     #region GameSignals
@@ -41,7 +43,22 @@
    }
     
     public struct SignalDoShake{}
-    
+
+    public struct SignalChangeAxis
+    {
+        public PlayerMoveHandler.MoveEnum _moveEnum;
+
+     public SignalChangeAxis(PlayerMoveHandler.MoveEnum moveEnum)
+        {
+            _moveEnum = moveEnum;
+        }
+
+    }
+
+    public struct SignalPunch
+    {
+        
+    }
     
     #endregion
   

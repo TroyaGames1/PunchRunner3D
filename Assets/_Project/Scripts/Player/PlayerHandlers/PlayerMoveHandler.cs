@@ -17,7 +17,7 @@ namespace PlayerBehaviors
         private readonly SignalBus _signal;
         private readonly PlayerAnimationHandler _animationHandler;
         private readonly Settings _settings;
-        private readonly PlayerStateManager _stateManager;
+        private PlayerStateManager _stateManager;
         public float GetDefaultSpeed => _settings.DefaultSpeed;
         
 
@@ -73,7 +73,7 @@ namespace PlayerBehaviors
             switch (moveEnum)
             {
                 case MoveEnum.MOVEX:
-                    _player.SplineFollower.motion.applyPositionX = false;
+                    _player.SplineFollower.motion.applyPositionX = true;
                     _player.SplineFollower.motion.applyPositionZ = true;
                 break;
                 case MoveEnum.MOVEZ:
@@ -188,7 +188,7 @@ namespace PlayerBehaviors
                    var clampedPositionZ = Mathf.Clamp(_player.Position.z, clampedNegativeZ,
                        clampedPositiveZ);
                    newVector=Mathf.Clamp(newVector,clampedNegativeZ,clampedPositiveZ);
-                   _player.Position = new Vector3(_player.Position.x, _player.Position.y, clampedPositionZ); 
+              //     _player.Position = new Vector3(_player.Position.x, _player.Position.y, clampedPositionZ); 
                    break;
            }
            

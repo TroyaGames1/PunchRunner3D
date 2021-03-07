@@ -54,6 +54,7 @@ namespace Installers
             Container.Bind<IdleState>().AsSingle();
             Container.Bind<RunningState>().AsSingle();
             Container.Bind<DeadState>().AsSingle();
+            Container.Bind<FinalState>().AsSingle();
             Container.Bind<FinishState>().AsSingle();
         }
     

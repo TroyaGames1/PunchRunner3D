@@ -1,10 +1,12 @@
-﻿namespace PlayerState
+﻿using UniRx;
+
+namespace PlayerState
 {
     public class FinishState : IState
     {
         public void EnterState()
         {
-        
+       
         }
 
         public void ExitState()

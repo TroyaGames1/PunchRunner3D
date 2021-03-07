@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle/Trigger
   - Obstacle/Collision
+  - BoxMachine
   layers:
   - Default
   - TransparentFX

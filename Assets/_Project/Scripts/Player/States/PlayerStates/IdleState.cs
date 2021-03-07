@@ -29,7 +29,8 @@ namespace PlayerState
             _observables.InputObservable
                 .Where(x => x.Length > 0 && 
                             _stateManager.CurrentState!=PlayerStateManager.PlayerStates.DeadState
-                            && _stateManager.CurrentState!=PlayerStateManager.PlayerStates.FinishState)
+                            && _stateManager.CurrentState!=PlayerStateManager.PlayerStates.FinishState&&
+                            _stateManager.CurrentState!=PlayerStateManager.PlayerStates.FinalState)
                 .Subscribe(x => _stateManager.ChangeState(PlayerStateManager.PlayerStates.RunningState))
                 .AddTo(_disposable);
 
