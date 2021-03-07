@@ -80,15 +80,14 @@ namespace PlayerBehaviors
             {
                 _moveFactorX = touch.position.x - _lastFrameFingerPositionX;
                 _lastFrameFingerPositionX = touch.position.x;
-            
+              
+                swerveAmount = _settings.SwerveSpeed * _moveFactorX; 
+                swerveAmount = Mathf.Clamp(swerveAmount, -_settings.MaxSwerveAmount, _settings.MaxSwerveAmount); 
+                newVector = _player.GO.transform.position.z - swerveAmount;
+               
+                _animationHandler.SetFloat("speed",swerveAmount*Time.deltaTime);
+                _ifMoving = true;
 
-                 swerveAmount = _settings.SwerveSpeed * _moveFactorX;
-                swerveAmount = Mathf.Clamp(swerveAmount, -_settings.MaxSwerveAmount, _settings.MaxSwerveAmount);
-                 newVector = _player.GO.transform.position.z - swerveAmount;
-                 
-                 _animationHandler.SetFloat("speed",swerveAmount*Time.deltaTime);
-                 
-                 _ifMoving = true;
 
             }
             else if (touch.phase== TouchPhase.Canceled | touch.phase==TouchPhase.Ended)
@@ -144,7 +143,7 @@ namespace PlayerBehaviors
             
             [HorizontalGroup("Group 2",0.5f,LabelWidth = 125)]
             [InfoBox("DefaultValue 0.25")]
-            [MinValue(0.15)]
+            [MinValue(0)]
             public float SwerveSpeed; 
             
             [HorizontalGroup("Group 2",0.5f,LabelWidth = 125)]

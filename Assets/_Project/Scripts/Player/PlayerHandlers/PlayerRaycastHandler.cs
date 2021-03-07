@@ -54,7 +54,10 @@ namespace PlayerBehaviors
             
             _signalBus.Subscribe<SignalStartRaycasting>(() =>
             {
-                _canCheckRaycast = true;
+                if (_canCheckRaycast==false)
+                {
+                    _canCheckRaycast = true;
+                }
             });
         }
         

@@ -19,7 +19,7 @@ MonoBehaviour:
         m_Bits: 256
     MoveHandlerSettings:
       DefaultSpeed: 3
-      SwerveSpeed: 0.17
+      SwerveSpeed: 0.1
       MaxSwerveAmount: 1.75
     healthProjectSettings:
       PlayerHP: 0.3

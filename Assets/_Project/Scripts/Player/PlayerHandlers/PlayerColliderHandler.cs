@@ -25,6 +25,10 @@ namespace PlayerBehaviors
             _observables.PlayerTriggerEnterObservable.Subscribe(x =>
             {
                 _signalBus.Fire<SignalStartRaycasting>();
+            }); 
+            _observables.PlayerTriggerStayObservable.Subscribe(x =>
+            {
+                _signalBus.Fire<SignalStartRaycasting>();
             });
             
         }
