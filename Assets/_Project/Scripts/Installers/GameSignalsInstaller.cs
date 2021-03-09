@@ -14,7 +14,6 @@ namespace Installers
             Container.DeclareSignal<SignalStartRaycasting>().OptionalSubscriber();
             Container.DeclareSignal<SignalPlayerHit>().OptionalSubscriber();
             Container.DeclareSignal<SignalDoShake>().OptionalSubscriber();
-            Container.DeclareSignal<SignalChangeAxis>().OptionalSubscriber();
             Container.DeclareSignal<SignalPunch>().OptionalSubscriber();
             Container.DeclareSignalWithInterfaces<SignalChangeSpeedAndAnimation>().OptionalSubscriber();
 

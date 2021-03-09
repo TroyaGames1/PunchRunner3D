@@ -18,7 +18,6 @@ public class TraumaInducer : MonoBehaviour
 
     private void Shake()
     {
-         
         float distance = Vector3.Distance(transform.position, _target.transform.position);
         float distance01 = Mathf.Clamp01(distance / Range);
         float stress = (1 - Mathf.Pow(distance01, 2)) * MaximumStress;

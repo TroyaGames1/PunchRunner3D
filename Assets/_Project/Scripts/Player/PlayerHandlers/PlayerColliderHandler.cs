@@ -41,7 +41,6 @@ namespace PlayerBehaviors
                     {
                         _stateManager.ChangeState(PlayerStateManager.PlayerStates.FinalState);
                         _player.GO.transform.position = x.gameObject.transform.GetChild(0).position;
-                     
                     }
                 );
 

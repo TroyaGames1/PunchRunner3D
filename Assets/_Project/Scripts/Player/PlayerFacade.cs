@@ -44,7 +44,7 @@ namespace PlayerBehaviors
             Debug.DrawRay(transform.position + Vector3.forward / 5 + 2 * Vector3.up, transform.forward, Color.red, 25);
             Debug.DrawRay(transform.position - Vector3.forward / 5 + 2 * Vector3.up, transform.forward, Color.red, 25);
 
-
+          
         }
 
 

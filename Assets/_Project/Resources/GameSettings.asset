@@ -18,7 +18,7 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 256
     MoveHandlerSettings:
-      DefaultSpeed: 3
+      DefaultSpeed: 4
       SwerveSpeed: 0.1
       MaxSwerveAmount: 1.75
     healthProjectSettings:

@@ -21,6 +21,7 @@ namespace Miscs
         public GameObject preGameUI { get; private set; }
         public  GameObject ınGameUI{ get; private set; }
         public  GameObject deadUI { get; private set; }
+        public  GameObject finalUI { get; private set; }
         public  GameObject finishGameUI { get; private set; }
         
         
@@ -29,6 +30,7 @@ namespace Miscs
             preGameUI = _settings.PreGameUI;
             ınGameUI = _settings.InGameUI;
             deadUI = _settings.DeadUI;
+            finalUI = _settings.FinalUI;
             finishGameUI = _settings.FinishUI;
         }
         void SetButtons()
@@ -53,6 +55,8 @@ namespace Miscs
             public GameObject InGameUI;
             [TabGroup("STATE UI")]
             public GameObject DeadUI;
+            [TabGroup("STATE UI")]
+            public GameObject FinalUI;
             [TabGroup("STATE UI")]
             public GameObject FinishUI;
 

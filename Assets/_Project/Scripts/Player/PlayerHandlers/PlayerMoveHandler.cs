@@ -26,17 +26,11 @@ namespace PlayerBehaviors
         private readonly SplineComputer _splineComputer;
 
         private float swerveAmount;
-        private float newVector;
-
-
+        private float newXPos;
+        
         private bool _ifMoving = false;
-
-        private MoveEnum _moveEnum;
-       public enum MoveEnum
-        {
-            MOVEZ,
-            MOVEX
-        }
+        
+       
         private PlayerMoveHandler(Player player,PlayerObservables observables, SignalBus signal,Settings settings, PlayerAnimationHandler animationHandler, PlayerStateManager stateManager)        
         {
             _player = player;
@@ -49,17 +43,18 @@ namespace PlayerBehaviors
             
         }
 
-     
-
         public void Initialize()
         {
-            _observables.InputObservable.Where(x=>_stateManager.CurrentState==PlayerStateManager.PlayerStates.RunningState).Subscribe(CheckHorizontalInputs);
+            _observables.InputObservable.Where(x=>_stateManager.CurrentState==PlayerStateManager.PlayerStates.RunningState)
+                .Subscribe();
             _signal.Subscribe<ISignalChangeSpeed>(x=>ChangeSpeed(x.Speed));
-            _signal.Subscribe<SignalChangeAxis>(x=>ChangeAxis(x._moveEnum));
 
             _observables.PlayerStateObservable.Where(x => x == PlayerStateManager.PlayerStates.RunningState)
-                .Subscribe(x => MoveHorizontal());
-
+                .Subscribe(x =>
+                {
+                    MoveHorizontal();
+                    CheckHorizontalInput();
+                });
         }
 
         private void ChangeSpeed(float speed)
@@ -67,34 +62,51 @@ namespace PlayerBehaviors
             _player.SplineFollower.followSpeed = speed;
         }
 
-        void ChangeAxis(MoveEnum moveEnum)
-        {
-            _moveEnum = moveEnum;
-            switch (moveEnum)
-            {
-                case MoveEnum.MOVEX:
-                    _player.SplineFollower.motion.applyPositionX = true;
-                    _player.SplineFollower.motion.applyPositionZ = true;
-                break;
-                case MoveEnum.MOVEZ:
-                    _player.SplineFollower.motion.applyPositionZ = false;
-                    _player.SplineFollower.motion.applyPositionX = true;
-                    break;
-            }
-        }
-    
-
-        
         public void FixedTick()
         {
             ClampPlayerHorizontalPosition();
         }   
+        
+     
+
+        void CheckHorizontalInput()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _lastFrameFingerPositionX = Input.mousePosition.x;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                _moveFactorX = Input.mousePosition.x - _lastFrameFingerPositionX;
+                _lastFrameFingerPositionX = Input.mousePosition.x;
+                
+                swerveAmount = _settings.SwerveSpeed * _moveFactorX; 
+                swerveAmount = Mathf.Clamp(swerveAmount, -_settings.MaxSwerveAmount, 
+                    +_settings.MaxSwerveAmount);
+
+              
+                newXPos = _player.GO.transform.localPosition.x + swerveAmount;
+                var difference = _player.GO.transform.localPosition.x - newXPos;
+
+                _animationHandler.SetFloat("speed",-difference* 10 *Time.deltaTime);
+                _ifMoving = true;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                _moveFactorX = 0f;
+                _ifMoving = false;
+            }
+        }
+
+        #region TouchInput
+
         private void CheckHorizontalInputs(Touch[] touches)
         {
             var touch = touches[0];
             
             if (touch.phase==TouchPhase.Began)
             {
+                _moveFactorX = 0f;
                 _lastFrameFingerPositionX = touch.position.x;
             }
             else if (touch.phase == TouchPhase.Moved|touch.phase == TouchPhase.Stationary)
@@ -104,22 +116,14 @@ namespace PlayerBehaviors
               
                 swerveAmount = _settings.SwerveSpeed * _moveFactorX; 
                 swerveAmount = Mathf.Clamp(swerveAmount, -_settings.MaxSwerveAmount, 
-                    _settings.MaxSwerveAmount);
+                    +_settings.MaxSwerveAmount);
 
-                switch (_moveEnum)
-                {
-                    case MoveEnum.MOVEX:
-                        newVector = _player.GO.transform.position.x - swerveAmount;
-                        break;
-                    case MoveEnum.MOVEZ:
-                        newVector = _player.GO.transform.position.z - swerveAmount;
-                        break;
-                }
+              
+                newXPos = _player.GO.transform.localPosition.x + swerveAmount;
+                var difference = _player.GO.transform.localPosition.x - newXPos;
 
-                _animationHandler.SetFloat("speed",swerveAmount*Time.deltaTime);
+                _animationHandler.SetFloat("speed",-difference* 4 *Time.deltaTime);
                 _ifMoving = true;
-
-
             }
             else if (touch.phase== TouchPhase.Canceled | touch.phase==TouchPhase.Ended)
             {
@@ -128,72 +132,35 @@ namespace PlayerBehaviors
             }
         }
 
+
+        #endregion
+     
         private void MoveHorizontal()
         {
-            
-            switch (_moveEnum)
+
+            _player.GO.transform.localPosition = new Vector3(Mathf.Lerp(_player.GO.transform.localPosition.x,
+                    newXPos, Time.deltaTime * 3.5f)
+                , _player.GO.transform.localPosition.y, _player.GO.transform.localPosition.z);
+
+            if (!_ifMoving)
             {
-                case MoveEnum.MOVEX:
-                    _player.GO.transform.position = new Vector3(Mathf.Lerp(_player.GO.transform.position.x,
-                            newVector,Time.deltaTime*3.5f)
-                        , _player.GO.transform.position.y,_player.GO.transform.position.z);
-                    
-                    if (!_ifMoving)
-                    {
-                        var difference = _player.GO.transform.position.x - newVector;
-                
-                        if (Mathf.Abs(difference) < 0.02f)
-                        {
-                            difference = 0;
-                        }
-                        _animationHandler.SetFloat("speed",difference/15f);
-                    }
-                    break;
-                case MoveEnum.MOVEZ:
-                    _player.GO.transform.position = new Vector3(_player.GO.transform.position.x, _player.GO.transform.position.y,
-                        Mathf.Lerp(_player.GO.transform.position.z,newVector,Time.deltaTime*3.5f));
-
-                    if (!_ifMoving)
-                    {
-                        var difference = _player.GO.transform.position.z - newVector;
-                
-                        if (Mathf.Abs(difference) < 0.02f)
-                        {
-                            difference = 0;
-                        }
-                        _animationHandler.SetFloat("speed",difference/15f);
-                    }
-                    break;
+                var difference = _player.GO.transform.localPosition.x - newXPos;
+                if (Mathf.Abs(difference) < 0.05f)
+                {
+                    difference = 0;
+                }
+                _animationHandler.SetFloat("speed", -difference / 2.5F);
             }
-            
-
         }
-        
+
         private void ClampPlayerHorizontalPosition()
         {
-           var splineWorldPos = _splineComputer.EvaluatePosition( _player.SplineFollower.result.percent);
-
-           switch (_moveEnum)
-           {
-               case MoveEnum.MOVEX:
-                   var clampedNegativeX = splineWorldPos.x - 1.50f; 
-                   var clampedPositiveX = splineWorldPos.x + 1.50f;
-                   var clampedPositionX = Mathf.Clamp(_player.Position.x, clampedNegativeX, clampedPositiveX);
-                   newVector=Mathf.Clamp(newVector,clampedNegativeX,clampedPositiveX);
-                   _player.Position = new Vector3(clampedPositionX, _player.Position.y, _player.Position.z); 
-               break;
-               case MoveEnum.MOVEZ:
-                   var clampedNegativeZ = splineWorldPos.z - 1.50f; 
-                   var clampedPositiveZ = splineWorldPos.z + 1.50f;
-                   var clampedPositionZ = Mathf.Clamp(_player.Position.z, clampedNegativeZ,
-                       clampedPositiveZ);
-                   newVector=Mathf.Clamp(newVector,clampedNegativeZ,clampedPositiveZ);
-              //     _player.Position = new Vector3(_player.Position.x, _player.Position.y, clampedPositionZ); 
-                   break;
-           }
-           
-          _player.RigidBody.velocity = Vector3.zero; 
-          _player.RigidBody.angularVelocity = Vector3.zero;
+          
+       _player.GO.transform.localPosition = new Vector3(Mathf.Clamp(_player.GO.transform.localPosition.x, 
+               -2, 2),
+                     0,0);
+       _player.RigidBody.velocity = Vector3.zero;
+       _player.RigidBody.angularVelocity = Vector3.zero;
            
 
         }
@@ -219,7 +186,8 @@ namespace PlayerBehaviors
             public float MaxSwerveAmount;
         }
 
-      
+
+        
     }
 }
 

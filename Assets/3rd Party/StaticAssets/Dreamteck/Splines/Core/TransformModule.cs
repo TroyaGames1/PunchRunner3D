@@ -165,6 +165,7 @@ namespace Dreamteck.Splines
             Vector3 direction = Vector3.right;
             switch (velocityHandleMode)
             {
+                  
                 case VelocityHandleMode.Preserve: idealVelocity = velocity; break;
                 case VelocityHandleMode.Align:
                     direction = _splineResult.forward;
@@ -175,19 +176,31 @@ namespace Dreamteck.Splines
                     if (Vector3.Dot(velocity, direction) < 0f) direction *= -1f;
                     idealVelocity = direction * velocity.magnitude * Vector3.Dot(velocity.normalized, direction); break;
             }
-            if (applyPositionX) velocity.x = idealVelocity.x;
+
+            if (applyPositionX)
+            {
+                velocity.x = idealVelocity.x;
+            }
             if (applyPositionY) velocity.y = idealVelocity.y;
-            if (applyPositionZ) velocity.z = idealVelocity.z;
+            if (applyPositionZ)
+            {
+                Debug.Log("VAR");
+                velocity.z = idealVelocity.z;
+            }
             return velocity;
         }
 
         private Vector3 GetPosition(Vector3 inputPosition)
         {
+            
             position = _splineResult.position;
             Vector2 finalOffset = _offset;
             //if (customOffset != null) finalOffset += customOffset.Evaluate(_splineResult.percent);
             if (finalOffset != Vector2.zero) position += _splineResult.right * finalOffset.x * _splineResult.size + _splineResult.up * finalOffset.y * _splineResult.size;
-            if (applyPositionX) inputPosition.x = position.x;
+            if (applyPositionX)
+            {
+                inputPosition.x = position.x;
+            }
             if (applyPositionY) inputPosition.y = position.y;
             if (applyPositionZ) inputPosition.z = position.z;
             return inputPosition;
