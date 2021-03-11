@@ -29,7 +29,7 @@ public class BoxMachine : MonoBehaviour
         {
             _hitGO.DOLocalRotate( new Vector3(180, 352.8849f, 0),0.2f).SetEase(Ease.OutExpo);
             
-            DOTween.To( GetValue, SetValue, 3.0f, 2f );
+            DOTween.To( GetValue, SetValue, CalculatePoint(xvalue), 2f );
             
             foreach (var system in _particleSystems)
             {
@@ -44,16 +44,16 @@ public class BoxMachine : MonoBehaviour
         float returnValue = 0;
         switch (xValue)
         {
-            case float n when n>=-438 & n<-334||n<=438 & n>334:
+            case float n when n>=-438 & n<-334||n>434 & n<=538:
                 returnValue= 0.8f;
                 break;
-            case float n when n>=-334 & n<-224||n<=334 & n>424:
+            case float n when n>=-334 & n<-224||n>324 & n<=434:
                 returnValue= 1.6f;
                 break; 
-            case float n when n>=-224 & n<-124||n>214 &n<=334:
+            case float n when n>=-224 & n<-124||n>224 &n<=324:
                 returnValue= 2.4f;
                 break;  
-            case float n when n>=-124 & n<0|| n>100& n<=214:
+            case float n when n>=-124 & n<0|| n>100& n<=224:
                 returnValue= 3.2f;
                 break;
             case float n when (n>=0 & n<=100):

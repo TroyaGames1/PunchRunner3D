@@ -18,7 +18,7 @@ public class FinalState : IState
     private readonly PlayerAnimationHandler _animationHandler;
     private Tween _tween;
     private bool _alreadyHit;
-    private Transform _hitCursor;
+    private RectTransform _hitCursor;
 
     public FinalState(SignalBus signalBus, PlayerObservables observables, Player player, UIManager uıManager, PlayerStateManager stateManager, PlayerAnimationHandler animationHandler)
     {
@@ -40,8 +40,8 @@ public class FinalState : IState
         
         _signalBus.AbstractFire(new SignalChangeSpeedMovementFactorAndAnimation("FinalIDLE", 0,0));
 
-        _hitCursor = _uıManager.finalUI.gameObject.transform.GetChild(0);
-        _tween =_hitCursor.GetComponent<RectTransform>()
+        _hitCursor = _uıManager.finalUI.gameObject.transform.GetChild(0).GetComponent<RectTransform>();
+        _tween =_hitCursor
             .DOAnchorPos(new Vector2(519, 248), 0.7f).SetEase(Ease.Linear).SetLoops(-1,LoopType.Yoyo);
 
         Observable.Timer(TimeSpan.FromSeconds(0.7)).Subscribe(x =>
@@ -54,7 +54,7 @@ public class FinalState : IState
                 _tween.Kill();
                 _signalBus.AbstractFire(new SignalChangeSpeedMovementFactorAndAnimation("FinalFinish", 0,0));
                 _animationHandler.SetFloat("Finish",0);
-                _signalBus.Fire(new SignalPunch());
+                _signalBus.Fire(new SignalPunch(_hitCursor.anchoredPosition.x));
                 _alreadyHit = true;
                 Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(z =>
                 {
