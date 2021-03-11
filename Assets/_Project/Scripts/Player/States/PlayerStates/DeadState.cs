@@ -18,14 +18,15 @@ namespace PlayerState
         }
 
         public void EnterState()
-        {
-            _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("DEAD", 0));
+        { 
+            _signalBus.AbstractFire(new SignalChangeSpeedMovementFactorAndAnimation("DEAD", 0,0)); 
+            _signalBus.Fire(new SignalPlayerFailed()); 
             _uıManager.deadUI.SetActive(true);
         }
 
         public void ExitState()
         {
-            Debug.Log("PlayerDeadStateExit");
+            
         }
 
         public void Update()

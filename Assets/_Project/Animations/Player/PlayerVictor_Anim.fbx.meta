@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 29566e0577c3f1241b31bcb5b3ad32fa
+guid: 46b044591805f0a41930062b517dc6b4
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -4791504522942941401
-    second: PlayerFinalDLE
+    second: PlayerVictory
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,13 +35,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PlayerFinalDLE
+      name: PlayerVictory
       takeName: Armature|Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 256
       wrapMode: 0
-      orientationOffsetY: 15
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0

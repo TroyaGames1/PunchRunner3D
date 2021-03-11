@@ -18,14 +18,16 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 256
     MoveHandlerSettings:
-      DefaultSpeed: 4
-      SwerveSpeed: 0.1
+      DefaultSpeed: 4.5
+      SwerveSpeed: 0.12
       MaxSwerveAmount: 1.75
+      DefaultMovementSpeedFactor: 3.5
+      CurrentMovementSpeedFactor: 0
     healthProjectSettings:
       PlayerHP: 0.3
   obstacleSettings:
     PunchTime:
-      defaultHitTime: 0.68
+      defaultHitTime: 0.55
       hitDamage: 1
       HitLayerMask:
         serializedVersion: 2

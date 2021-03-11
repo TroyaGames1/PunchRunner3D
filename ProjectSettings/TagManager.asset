@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacle/Trigger
-  - Obstacle/Collision
   - BoxMachine
+  - Obstacle
   layers:
   - Default
   - TransparentFX

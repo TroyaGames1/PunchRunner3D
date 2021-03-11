@@ -7,20 +7,26 @@ namespace Events
 
     #region SignalChangeSpeedAndAnimation
 
-    public readonly struct SignalChangeSpeedAndAnimation: ISignalChangeSpeed,ISignalChangeAnimation
+    public readonly struct SignalChangeSpeedMovementFactorAndAnimation: ISignalChangeSpeed,ISignalChangeAnimation, ISignalChangeMovementSpeedFactor
     { 
-        public SignalChangeSpeedAndAnimation(string animation, float speed)
+        public SignalChangeSpeedMovementFactorAndAnimation(string animation, float splineSpeed, float factor)
         {
             Animation = animation;
-            Speed = speed;
+            SplineSpeed = splineSpeed;
+            SpeedFactor = factor;
         }
     
         public string Animation { get; }
-        public float Speed { get; }
+        public float SplineSpeed { get; }
+        public float SpeedFactor { get; }
     } 
     public interface ISignalChangeSpeed
     {
-        float  Speed { get; }
+        float  SplineSpeed { get; }
+    }
+    public interface ISignalChangeMovementSpeedFactor
+    {
+        float  SpeedFactor { get; }
     } 
     public interface ISignalChangeAnimation
     {
@@ -48,7 +54,12 @@ namespace Events
 
     public struct SignalPunch
     {
-        
+        public float xValue;
+
+        public SignalPunch(float xValue)
+        {
+            this.xValue = xValue;
+        }
     }
     
     #endregion

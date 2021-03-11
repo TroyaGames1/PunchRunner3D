@@ -1,5 +1,6 @@
 ﻿using System;
 using Dreamteck.Splines;
+using PlayerState;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,11 +11,13 @@ namespace PlayerBehaviors
     {
 
         Player _model;
+        private PlayerStateManager _stateManager;
 
         [Inject]
-        public void Construct(Player player)
+        public void Construct(Player player,PlayerStateManager stateManager)
         {
             _model = player;
+            _stateManager = stateManager;
         }
 
         public bool IsDead => _model.IsDead;
@@ -37,6 +40,13 @@ namespace PlayerBehaviors
         public SplineFollower SplineFollower => _model.SplineFollower;
 
         public Slider HPSlider => _model.Slider;
+        
+        void OnApplicationQuit()
+        {
+             _stateManager.CurrentStateAsIstate.ExitState();
+
+        }
+
 
         public void OnDrawGizmos()
         {
@@ -46,7 +56,6 @@ namespace PlayerBehaviors
 
           
         }
-
-
+  
     }
 }

@@ -91,12 +91,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864904921417335255}
-  m_LocalRotation: {x: -0, y: -0.70874816, z: -0, w: 0.7054616}
-  m_LocalPosition: {x: 0, y: 0, z: 539.79736}
-  m_LocalScale: {x: 0.9999999, y: 1, z: 0.9999999}
+  m_LocalRotation: {x: -0, y: -0.7087482, z: -0, w: 0.7054616}
+  m_LocalPosition: {x: 0, y: 0, z: 539.7975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 864904921922070812}
-  m_Father: {fileID: 864904922754134112}
+  m_Father: {fileID: 831612376834158854}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -284,7 +284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     Rigidbody: {fileID: 1090256589}
-    PlayerModel: {fileID: 54513375844297660}
     Animator: {fileID: 6731289180388289404}
     SplineFollower: {fileID: 864904922754134114}
     Slider: {fileID: 864904921922070811}
@@ -450,7 +449,6 @@ Transform:
   m_Children:
   - {fileID: 864904921785815448}
   - {fileID: 831612376834158854}
-  - {fileID: 864904921417335254}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.119, z: 0}

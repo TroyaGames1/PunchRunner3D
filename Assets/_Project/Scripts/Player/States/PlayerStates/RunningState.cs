@@ -15,7 +15,7 @@ namespace PlayerState
 
         public void EnterState()
         {
-            _player.SplineFollower.followSpeed = _moveHandler.GetDefaultSpeed;
+            _player.SplineFollower.followSpeed = _moveHandler.GetDefaultSplineSpeed;
             _player.GetAnimator.Play("WALK");
 
         }

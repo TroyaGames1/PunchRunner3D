@@ -25,9 +25,9 @@ namespace PlayerBehaviors
             _player.GetAnimator.Play(anim);
         }
 
-        public void SetFloat(string anim, float speed)
+        public void SetFloat(string param, float speed)
         {
-            _player.GetAnimator.SetFloat(anim,speed);
+            _player.GetAnimator.SetFloat(param,speed);
         }
     }
 }

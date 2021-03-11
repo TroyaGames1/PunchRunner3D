@@ -244,13 +244,12 @@ GameObject:
   - component: {fileID: 1344401762328205900}
   - component: {fileID: 2668274833283110377}
   - component: {fileID: 208127221924405539}
-  - component: {fileID: 1523060251837990896}
   - component: {fileID: 1523060251837990903}
   - component: {fileID: 1523060251837990898}
   - component: {fileID: 7873760213490356397}
   m_Layer: 8
   m_Name: BagBase
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,19 +320,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1523060251837990896
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865500607734546678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.03116541, y: 0.08495278, z: 0.049773254}
-  m_Center: {x: -0.00009092075, y: -0.015243663, z: 0.014886663}
 --- !u!65 &1523060251837990903
 BoxCollider:
   m_ObjectHideFlags: 0

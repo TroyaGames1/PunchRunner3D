@@ -27,20 +27,23 @@ namespace PlayerBehaviors
         public void Initialize()
         {
 
-            _observables.PlayerTriggerEnterObservable.Subscribe(x =>
+            _observables.PlayerCollisionEnterObservable
+                .Where(x=> x.gameObject.CompareTag("Obstacle")).Subscribe(x =>
             {
                 _signalBus.Fire<SignalStartRaycasting>();
             }); 
-            _observables.PlayerTriggerStayObservable.Subscribe(x =>
-            {
-                _signalBus.Fire<SignalStartRaycasting>();
-            });
+            _observables.PlayerCollisionStayObservable
+                .Where(x=> x.gameObject.CompareTag("Obstacle"))
+                    .Subscribe(x =>
+                {
+                    _signalBus.Fire<SignalStartRaycasting>();
+                });
 
             _observables.PlayerTriggerEnterObservable.Where(x => x.gameObject.CompareTag("BoxMachine")&& _stateManager.CurrentState==PlayerStateManager.PlayerStates.RunningState)
                 .Subscribe(x =>
                     {
                         _stateManager.ChangeState(PlayerStateManager.PlayerStates.FinalState);
-                        _player.GO.transform.position = x.gameObject.transform.GetChild(0).position;
+                        _player.GO.transform.position = x.transform.GetChild(0).position;
                     }
                 );
 

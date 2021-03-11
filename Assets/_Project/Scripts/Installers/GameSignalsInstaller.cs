@@ -15,14 +15,15 @@ namespace Installers
             Container.DeclareSignal<SignalPlayerHit>().OptionalSubscriber();
             Container.DeclareSignal<SignalDoShake>().OptionalSubscriber();
             Container.DeclareSignal<SignalPunch>().OptionalSubscriber();
-            Container.DeclareSignalWithInterfaces<SignalChangeSpeedAndAnimation>().OptionalSubscriber();
+            Container.DeclareSignalWithInterfaces<SignalChangeSpeedMovementFactorAndAnimation>().OptionalSubscriber();
 
+            InstallStateSignals();
         }
 
-        public void InstallStateSignals() //TODO
+        private void InstallStateSignals() //TODO
         {
             Container.DeclareSignal<StartSignal>().OptionalSubscriber(); 
-            Container.DeclareSignal<FailSignal>().OptionalSubscriber();
+            Container.DeclareSignal<SignalPlayerFailed>().OptionalSubscriber();
             Container.DeclareSignal<CompleteSignal>().OptionalSubscriber();
         }
 

@@ -31681,14 +31681,13 @@ GameObject:
   - component: {fileID: 6159953958813424995}
   - component: {fileID: 7121130991809909446}
   - component: {fileID: 4987632828281398796}
-  - component: {fileID: 5978022732124422367}
   - component: {fileID: 5978022732124422360}
   - component: {fileID: 5978022732124422365}
   - component: {fileID: 3067509935838123906}
   - component: {fileID: 2860257819947911259}
   m_Layer: 8
   m_Name: BagRed Variant
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31760,19 +31759,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5978022732124422367
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6788998117684774873}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.029601973, y: 0.08495278, z: 0.049773254}
-  m_Center: {x: -0.00087264087, y: -0.015243663, z: 0.014886663}
 --- !u!65 &5978022732124422360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31784,8 +31770,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.02975454, y: 0.08468837, z: 0.02}
-  m_Center: {x: -0.0009020979, y: -0.015111471, z: -5.5936186e-19}
+  m_Size: {x: 0.03112255, y: 0.08468837, z: 0.04022572}
+  m_Center: {x: -0.0002180934, y: -0.015111471, z: 0.01011288}
 --- !u!114 &5978022732124422365
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Events;
 using Miscs;
 using PlayerBehaviors;
@@ -13,42 +14,64 @@ public class FinalState : IState
     private readonly PlayerObservables _observables;
     private readonly UIManager _uıManager;
     private readonly Player _player;
+    private readonly PlayerStateManager _stateManager;
+    private readonly PlayerAnimationHandler _animationHandler;
     private Tween _tween;
     private bool _alreadyHit;
-    public FinalState(SignalBus signalBus, PlayerObservables observables, Player player, UIManager uıManager)
+    private Transform _hitCursor;
+
+    public FinalState(SignalBus signalBus, PlayerObservables observables, Player player, UIManager uıManager, PlayerStateManager stateManager, PlayerAnimationHandler animationHandler)
     {
         _signalBus = signalBus;
         _observables = observables;
         _player = player;
         _uıManager = uıManager;
+        _stateManager = stateManager;
+        _animationHandler = animationHandler;
     }
 
 
     public void EnterState()
-    {
-       _player.RigidBody.constraints = RigidbodyConstraints.FreezeAll;
-       _player.SplineFollower.enabled = false;
-       _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("FinalIDLE", 0));
-       _uıManager.finalUI.gameObject.SetActive(true);
-       _tween =_uıManager.finalUI.gameObject.transform.GetChild(0).GetComponent<RectTransform>()
-            .DOAnchorPos(new Vector2(465, -478f), 1).SetEase(Ease.Linear).SetLoops(-1,LoopType.Yoyo);
+    {       
+        _uıManager.finalUI.SetActive(true);
+        _player.Slider.gameObject.SetActive(false);
+        _player.SplineFollower.enabled = false;
+        _player.RigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        
+        _signalBus.AbstractFire(new SignalChangeSpeedMovementFactorAndAnimation("FinalIDLE", 0,0));
 
-        _observables.InputObservable.Subscribe(x =>
+        _hitCursor = _uıManager.finalUI.gameObject.transform.GetChild(0);
+        _tween =_hitCursor.GetComponent<RectTransform>()
+            .DOAnchorPos(new Vector2(519, 248), 0.7f).SetEase(Ease.Linear).SetLoops(-1,LoopType.Yoyo);
+
+        Observable.Timer(TimeSpan.FromSeconds(0.7)).Subscribe(x =>
         {
-            if (_alreadyHit) return;
-            _tween.Pause();
-            _tween.Kill();
-            _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("FINALPUNCH", 0));
-            _signalBus.Fire(new SignalPunch());
-            _alreadyHit = true;
+            _observables.InputObservable.Subscribe(y =>
+            {
+                if (_alreadyHit) return;
+                
+                _tween.Pause();
+                _tween.Kill();
+                _signalBus.AbstractFire(new SignalChangeSpeedMovementFactorAndAnimation("FinalFinish", 0,0));
+                _animationHandler.SetFloat("Finish",0);
+                _signalBus.Fire(new SignalPunch());
+                _alreadyHit = true;
+                Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(z =>
+                {
+                    _uıManager.finalUI.SetActive(false);
+                    _stateManager.ChangeState(PlayerStateManager.PlayerStates.FinishState);
+                });
 
+            });
         });
 
     }
 
+
+
     public void ExitState()
     {
-        Debug.Log("FınalExitr");
+        
     }
 
     public void Update()

@@ -10,15 +10,10 @@ public class CinemachineClamper : MonoBehaviour
     [SerializeField] private SplineComputer _splineComputer;
     [SerializeField] private SplineFollower _splineFollower;
 
-    [SerializeField] private Vector3 _newPos;
-    
 
-    private Vector3 _vector3;
-    
-    public float _offset;
-    public Vector3 _pos;
-    public Vector3 _newTest;
-    public float damp;
+    [SerializeField] private Vector3 PositionOffset;
+    [SerializeField] private Vector3 RotationOffset;
+    [SerializeField] private float Damp;
        
         private void LateUpdate()
         {
@@ -26,16 +21,13 @@ public class CinemachineClamper : MonoBehaviour
             var splineWorldPos = _splineComputer.EvaluatePosition( _splineFollower.result.percent);
             var splineRotation = _splineFollower.transform.eulerAngles.y ;
 
-            _pos = splineWorldPos - _splineFollower.transform.forward * _offset;
-            _pos.y = 4;
-            // var newVec=new Vector3(_pos.x, _pos.y, _player.transform.position.z + _offset);
-            transform.position = Vector3.Lerp(transform.position,_pos,Time.deltaTime*damp);
-           var currentRotation= Mathf.Lerp(transform.localEulerAngles.y,splineRotation,Time.deltaTime*damp);
-           transform.localEulerAngles = new Vector3(0, currentRotation, 0);
+            var _cameraPos = splineWorldPos - _splineFollower.transform.forward * PositionOffset.x;
+            _cameraPos.y = PositionOffset.y;
+
+                            transform.position = Vector3.Lerp(transform.position,_cameraPos,Time.deltaTime*Damp);
+           var currentRotation= Mathf.Lerp(transform.localEulerAngles.y,splineRotation+RotationOffset.y,Time.deltaTime*Damp);
+           transform.localEulerAngles = new Vector3(RotationOffset.x, currentRotation, RotationOffset.z);
         }
 
-        public void SetNewPos()
-        {
-          //  _pos = _newPos;
-        }
+    
 }

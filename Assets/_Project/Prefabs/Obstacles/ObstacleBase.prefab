@@ -44,7 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42378957620554964}
   m_Layer: 0
-  m_Name: Obstacle0
+  m_Name: ObstacleBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5595507940350444730, guid: eab7f27b3c52c974aae779bcdda5c497, type: 3}
+      propertyPath: m_Size.x
+      value: 0.03112255
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595507940350444730, guid: eab7f27b3c52c974aae779bcdda5c497, type: 3}
+      propertyPath: m_Size.z
+      value: 0.04022572
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595507940350444730, guid: eab7f27b3c52c974aae779bcdda5c497, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0002180934
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595507940350444730, guid: eab7f27b3c52c974aae779bcdda5c497, type: 3}
+      propertyPath: m_Center.z
+      value: 0.01011288
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5595507940350444733, guid: eab7f27b3c52c974aae779bcdda5c497, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eab7f27b3c52c974aae779bcdda5c497, type: 3}
 --- !u!4 &8581188751051087273 stripped
 Transform:
@@ -377,7 +394,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BagGreen Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 257189689546022758, guid: e46a44cf01244e244be6409eed0b5bd8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e46a44cf01244e244be6409eed0b5bd8, type: 3}
 --- !u!4 &8873031831271675993 stripped
 Transform:

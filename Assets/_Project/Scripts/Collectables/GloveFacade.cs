@@ -1,4 +1,5 @@
-﻿using Events;
+﻿using System;
+using Events;
 using UnityEngine;
 using Zenject;
 
@@ -14,9 +15,13 @@ public class GloveFacade : MonoBehaviour
         _signalBus = signalBus;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         _signalBus.Fire(new SignalPlayerHit(HealtValue));
         Destroy(gameObject);
     }
+
+    
+    
+    
 }

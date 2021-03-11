@@ -18,10 +18,12 @@ namespace PlayerBehaviors
         private readonly TickableManager _tickableManager;
         private readonly PlayerMoveHandler _moveHandler;
         private readonly PlayerStateManager _stateManager;
+        private readonly PlayerObservables _observables;
 
-       
+
         private StateENUM _stateEnum;
         private bool _canCheckRaycast;
+        private RaycastHit _hit;
 
         private enum StateENUM
         {
@@ -31,7 +33,7 @@ namespace PlayerBehaviors
       
 
         public PlayerRaycastHandler(Player player, SignalBus signalBus, Settings settings,
-            TickableManager tickableManager, PlayerMoveHandler moveHandler, PlayerStateManager stateManager)
+            TickableManager tickableManager, PlayerMoveHandler moveHandler, PlayerStateManager stateManager, PlayerObservables observables)
         {
             _player = player;
             _signalBus = signalBus;
@@ -39,11 +41,16 @@ namespace PlayerBehaviors
             _tickableManager = tickableManager;
             _moveHandler = moveHandler;
             _stateManager = stateManager;
-            
+            _observables = observables;
         }
         
         public void Initialize()
         {
+            _observables.PlayerTriggerEnterObservable.Where(x => !x.CompareTag("Obstacle"))
+                .Subscribe(x => _canCheckRaycast = false);
+            _observables.PlayerCollisionEnterObservable.Where(x => !x.collider.CompareTag("Obstacle"))
+                .Subscribe(x => _canCheckRaycast = false);
+            
             _tickableManager.TickStream
                 .Where(x => _canCheckRaycast&&
                             _stateManager.CurrentState==PlayerStateManager.PlayerStates.RunningState)
@@ -51,6 +58,8 @@ namespace PlayerBehaviors
             {
                 CheckRayCasts();
             });
+            
+            
             
             _signalBus.Subscribe<SignalStartRaycasting>(() =>
             {
@@ -61,6 +70,8 @@ namespace PlayerBehaviors
             });
         }
         
+       
+
 
         private void CheckRayCasts()=> ChangeState(CanMove ? StateENUM.WALKING : StateENUM.PUNCHING);
         
@@ -76,11 +87,13 @@ namespace PlayerBehaviors
             switch (_stateEnum)
             {
                 case StateENUM.WALKING:
-                    _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("WALK", _moveHandler.GetDefaultSpeed));
-                    _canCheckRaycast = false;
+                    _signalBus.AbstractFire(
+                    new SignalChangeSpeedMovementFactorAndAnimation("WALK", 
+                        _moveHandler.GetDefaultSplineSpeed,_moveHandler.GetDefaultMoveFactor));
+                    
                     break;
                 case StateENUM.PUNCHING:
-                    _signalBus.AbstractFire(new SignalChangeSpeedAndAnimation("PUNCH", 0));
+                    _signalBus.AbstractFire(new SignalChangeSpeedMovementFactorAndAnimation("PUNCH", 0,2));
                     break;
             }
         }
@@ -91,13 +104,14 @@ namespace PlayerBehaviors
         #region Raycasts
 
         private bool CanMove => !RayCastForward&& !RayCastRight && !RayCastLeft;
-        private bool RayCastForward=>  Physics.Raycast(_player.Position+ 1*Vector3.up, 
-            _player.GO.transform.forward , 0.3f,_settings.RaycastLayer);
-       
+        private bool RayCastForward =>
+            Physics.Raycast(_player.Position + 1 * Vector3.up,
+                _player.GO.transform.forward, out _hit,0.7f, _settings.RaycastLayer);
+
         private bool RayCastRight=>Physics.Raycast(_player.Position+Vector3.forward/6 +1*Vector3.up, 
-            _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
+            _player.GO.transform.forward, 0.7f,_settings.RaycastLayer);
         private bool RayCastLeft=>Physics.Raycast(_player.Position-Vector3.forward/6 +1*Vector3.up, 
-            _player.GO.transform.forward, 0.3f,_settings.RaycastLayer);
+            _player.GO.transform.forward, 0.7f,_settings.RaycastLayer);
        
 
         #endregion
@@ -109,7 +123,6 @@ namespace PlayerBehaviors
         }
 
 
-    
     }
     
 

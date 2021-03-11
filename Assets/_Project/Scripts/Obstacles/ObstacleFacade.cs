@@ -22,9 +22,7 @@ public class ObstacleFacade : MonoBehaviour
     
     private bool _canCheckRaycast;
     private float _currentHitTime;
-
-
-    private TraumaInducer _traumaInducer;
+    
     [Inject]
     public void Constructor(Settings settings,SignalBus signalBus)
     {
@@ -37,12 +35,15 @@ public class ObstacleFacade : MonoBehaviour
     private void Awake()
     {
         health.SubscribeToText(_textMesh).AddTo(this);
-        _traumaInducer = GetComponent<TraumaInducer>();
+        _signalBus.Subscribe<SignalPlayerFailed>(x =>
+        {
+            enabled = false;
+        });
         FindObjectComponents();
      
     }
 
-    void FindObjectComponents()
+    private void FindObjectComponents()
     {
         _rayfireBody = transform.GetChild(0).transform;
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -50,7 +51,7 @@ public class ObstacleFacade : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         CheckRayCastAndTakeDamage();
     }
@@ -95,7 +96,7 @@ public class ObstacleFacade : MonoBehaviour
         }
     }
 
-    void DisableThisObject()
+    private void DisableThisObject()
     {
         _meshRenderer.enabled = false;
         _textMesh.gameObject.SetActive(false);
@@ -111,7 +112,8 @@ public class ObstacleFacade : MonoBehaviour
         _canCheckRaycast && Physics.Raycast(transform.position, transform.forward,2 , _settings.HitLayerMask);
     
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter(Collision other)
     {
         _canCheckRaycast = true;
     }

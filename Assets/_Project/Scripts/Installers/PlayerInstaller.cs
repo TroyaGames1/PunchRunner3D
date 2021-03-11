@@ -25,7 +25,7 @@ namespace Installers
         public override void InstallBindings()
         {
             Container.Bind<Player>().AsSingle()
-                .WithArguments(_settings.Rigidbody,_settings.PlayerModel,_settings.Animator,_settings.SplineFollower,_settings.Slider);
+                .WithArguments(_settings.Rigidbody,_settings.Animator,_settings.SplineFollower,_settings.Slider);
         
             StateManagerInstall();
             InstallPlayerHandlers();
@@ -63,7 +63,6 @@ namespace Installers
         public class Settings
         {
             public Rigidbody Rigidbody;
-            public GameObject PlayerModel;
             public Animator Animator;
             public SplineFollower SplineFollower;
             public Slider Slider;

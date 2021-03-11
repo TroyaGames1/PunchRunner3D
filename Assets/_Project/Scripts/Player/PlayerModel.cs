@@ -7,10 +7,9 @@ namespace PlayerBehaviors
     public class Player
     {
 
-        public Player(GameObject playerModel,Rigidbody rigidBody, Animator animator,SplineFollower splineFollower,Slider slider)
+        public Player(Rigidbody rigidBody, Animator animator,SplineFollower splineFollower,Slider slider)
         {
             RigidBody = rigidBody;
-            GO = playerModel;
             GetAnimator  = animator;
             SplineFollower = splineFollower;
             Slider = slider;
@@ -42,7 +41,7 @@ namespace PlayerBehaviors
             set => GO.transform.position = value;
         }
 
-        public GameObject GO;
+        public GameObject GO=>RigidBody.gameObject;
 
 
         public void AddForce(Vector3 force)

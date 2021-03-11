@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 29566e0577c3f1241b31bcb5b3ad32fa
+guid: 536938587cf372b4897464269b0de471
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -4791504522942941401
-    second: PlayerFinalDLE
+    second: PlayerDeath
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,23 +35,23 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PlayerFinalDLE
+      name: PlayerDeath
       takeName: Armature|Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 78
       wrapMode: 0
-      orientationOffsetY: 15
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
       heightFromFeet: 0

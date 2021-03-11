@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -4791504522942941401
-    second: FinalHit
+    second: PlayerFinalHit
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: FinalHit
+      name: PlayerFinalHit
       takeName: Armature|Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
