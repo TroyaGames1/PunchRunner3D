@@ -1,16 +1,23 @@
-﻿#if STORE_BUILD
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections;
+#if STORE_BUILD
 using Facebook.Unity;
 using GameAnalyticsSDK;
+#endif
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class Analytics : MonoBehaviour
 {
-   [Inject] private SignalBus _signal;
-
-
+    [Inject] private SignalBus _signal;
+   
+    public void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("CurrentLevel",SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
+    }
+#if STORE_BUILD
     void Awake()
     {  
 
@@ -40,7 +47,7 @@ public class Analytics : MonoBehaviour
         }
     }
 
-    
+  
     private void LoadAnalyticSignals()
     {
         _signal.Subscribe<StartSignal>(StartSignal);
@@ -50,26 +57,28 @@ public class Analytics : MonoBehaviour
 
     private void StartSignal()
     {
-         GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start,
-             "World_01", 
-             PlayerPrefs.GetInt("CurrentLevel").ToString(),
-             "Level_Progress");
-    
+        GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start,
+            "World_01", 
+            PlayerPrefs.GetInt("CurrentLevel").ToString(),
+            "Level_Progress");
+
     }
     private void FailSignal()
     {
-        GameAnalytics.NewProgressionEvent (GAProgressionStatus.Fail,
-            "World_01", 
-            PlayerPrefs.GetInt("CurrentLevel").ToString(),
-            "Level_Progress");   
+       GameAnalytics.NewProgressionEvent (GAProgressionStatus.Fail,
+           "World_01", 
+           PlayerPrefs.GetInt("CurrentLevel").ToString(),
+           "Level_Progress");  
+       
+       Debug.Log($"Level {SceneManager.GetActiveScene().buildIndex} Failed");
+
     }
     private void FinishSignal()
     {
-        GameAnalytics.NewProgressionEvent (GAProgressionStatus.Complete,
-            "World_01", 
-            PlayerPrefs.GetInt("CurrentLevel").ToString(),
-            "Level_Progress");    
+      GameAnalytics.NewProgressionEvent (GAProgressionStatus.Complete,
+          "World_01", 
+          PlayerPrefs.GetInt("CurrentLevel").ToString(),
+          "Level_Progress");
     }
-
+#endif  
 }
-#endif

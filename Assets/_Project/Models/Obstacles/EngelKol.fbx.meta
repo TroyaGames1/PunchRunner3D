@@ -1,33 +1,14 @@
 fileFormatVersion: 2
-guid: aa5b587f6842a92469f9a9d0ec93a6bd
+guid: 5d97271e98f78f5489cb3627fa666a7e
 ModelImporter:
   serializedVersion: 20101
-  internalIDToNameTable:
+  internalIDToNameTable: []
+  externalObjects:
   - first:
-      74: -8643327416848753306
-    second: Sphere|Sphere.001|Sphere.001|SphereAction.001|Sphere.001|SphereAction.
-  - first:
-      74: 7260340479328194435
-    second: Sphere|Sphere.001|Sphere.001|SphereAction|Sphere.001|SphereAction
-  - first:
-      74: -7529480080537874665
-    second: Sphere|Sphere|Sphere|SphereAction.001|Sphere|SphereAction.001
-  - first:
-      74: 2197330037005138102
-    second: Sphere|Sphere|Sphere|SphereAction|Sphere|SphereAction
-  - first:
-      74: 7305318028298890835
-    second: Sphere.001|Sphere.001|Sphere.001|SphereAction.001|Sphere.001|SphereAction.
-  - first:
-      74: -7794751290487803156
-    second: Sphere.001|Sphere.001|Sphere.001|SphereAction|Sphere.001|SphereAction
-  - first:
-      74: 5934945534164577495
-    second: Sphere.001|Sphere|Sphere|SphereAction.001|Sphere|SphereAction.001
-  - first:
-      74: 4916435077513916361
-    second: Sphere.001|Sphere|Sphere|SphereAction|Sphere|SphereAction
-  externalObjects: {}
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KOl
+    second: {fileID: 2100000, guid: bc044c583d88c7a4d9741cb6b1350c61, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -2,6 +2,7 @@
 using Miscs;
 using PlayerBehaviors;
 using UniRx;
+using UnityEngine;
 
 
 namespace PlayerState
@@ -24,6 +25,9 @@ namespace PlayerState
         
         public void EnterState()
         {
+            
+            Physics.reuseCollisionCallbacks = true;
+
             _uıManager.preGameUI.SetActive(true);
 
             _observables.InputObservable

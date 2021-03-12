@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -17,11 +15,14 @@ public class LevelLoader: IInitializable
 
     public void Initialize()
     {
-        
-        _currentLevel= PlayerPrefs.GetInt("CurrentLevel");
+        if (PlayerPrefs.HasKey("CurrentLevel"))
+        {
+            _currentLevel= PlayerPrefs.GetInt("CurrentLevel");
+        }
+         
         if (SceneManager.GetActiveScene().buildIndex==_currentLevel)
         {
-         //   _signal.Fire<StartSignal>(); //TODO
+            _signal.Fire<StartSignal>();
             return;
         }
         SceneManager.LoadScene(_currentLevel);

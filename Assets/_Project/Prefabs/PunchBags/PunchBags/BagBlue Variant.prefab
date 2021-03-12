@@ -3564,7 +3564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health:
-    value: 5
+    value: 7
   _textMesh: {fileID: 3454515980949512704}
   _damageParticle: {fileID: 6873136811134677836}
 --- !u!114 &6311566127577348567

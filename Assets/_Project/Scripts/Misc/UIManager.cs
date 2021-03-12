@@ -19,7 +19,7 @@ namespace Miscs
         }
 
         public GameObject preGameUI { get; private set; }
-        public  GameObject ınGameUI{ get; private set; }
+        public  GameObject inGameUI{ get; private set; }
         public  GameObject deadUI { get; private set; }
         public  GameObject finalUI { get; private set; }
         public  GameObject finishGameUI { get; private set; }
@@ -28,7 +28,7 @@ namespace Miscs
         void SetUIGetters()
         {
             preGameUI = _settings.PreGameUI;
-            ınGameUI = _settings.InGameUI;
+            inGameUI = _settings.InGameUI;
             deadUI = _settings.DeadUI;
             finalUI = _settings.FinalUI;
             finishGameUI = _settings.FinishUI;
@@ -41,7 +41,9 @@ namespace Miscs
             }).AddTo(_settings.RestartButton);
             _settings.NextLevelButton.OnClickAsObservable().Subscribe(x =>
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+                var nextLevelIndex = SceneManager.GetActiveScene().buildIndex+1;
+                PlayerPrefs.SetInt("CurrentLevel",nextLevelIndex);
+                SceneManager.LoadScene(nextLevelIndex);
             }).AddTo(_settings.NextLevelButton);
         }
         

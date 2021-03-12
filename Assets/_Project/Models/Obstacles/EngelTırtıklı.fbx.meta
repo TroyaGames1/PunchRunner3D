@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 4f3ff2dd3f4807340bf2a04e420104db
+guid: 4ac6bdfaa710edf45a34deb8a2be3b5f
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Renk
+    second: {fileID: 2100000, guid: 58aff2a62cc1bb84485233fdab4b9396, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
