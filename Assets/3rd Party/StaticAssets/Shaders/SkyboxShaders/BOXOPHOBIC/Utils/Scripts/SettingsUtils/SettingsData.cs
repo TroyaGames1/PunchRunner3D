@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Boxophobic.Utils
 {
-    [CreateAssetMenu(fileName = "Data", menuName = "BOXOPHOBIC/Settings Data")]
+    //[CreateAssetMenu(fileName = "Settings", menuName = "BOXOPHOBIC/SettingsData")]
     public class SettingsData : ScriptableObject
     {
         [Space]

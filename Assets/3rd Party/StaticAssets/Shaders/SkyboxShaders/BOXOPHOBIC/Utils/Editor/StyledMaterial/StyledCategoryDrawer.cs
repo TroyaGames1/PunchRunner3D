@@ -20,12 +20,10 @@ namespace Boxophobic.StyledGUI
             if (prop.floatValue < 0)
             {
                 GUI.enabled = true;
-                EditorGUI.indentLevel = 0;
             }
             else
             {
                 GUI.enabled = true;
-                EditorGUI.indentLevel = 0;
                 StyledGUI.DrawInspectorCategory(position, category);
             }
         }
