@@ -74,7 +74,6 @@ namespace PlayerBehaviors
         {
             if (Input.GetMouseButtonDown(0))
             {
-                _moveFactorX = 0f;
                 _lastFrameFingerPositionX = Input.mousePosition.x;
             }
             else if (Input.GetMouseButton(0))
@@ -94,6 +93,7 @@ namespace PlayerBehaviors
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                _moveFactorX = 0f;
                 _ifTouching = false;
             }
         }

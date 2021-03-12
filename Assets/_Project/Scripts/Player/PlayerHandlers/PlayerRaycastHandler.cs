@@ -87,6 +87,7 @@ namespace PlayerBehaviors
             switch (_stateEnum)
             {
                 case StateENUM.WALKING:
+                    Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(x => _canCheckRaycast = false);
                     _signalBus.AbstractFire(
                     new SignalChangeSpeedMovementFactorAndAnimation("WALK", 
                         _moveHandler.GetDefaultSplineSpeed,_moveHandler.GetDefaultMoveFactor));
@@ -123,6 +124,7 @@ namespace PlayerBehaviors
         }
 
 
+       
     }
     
 

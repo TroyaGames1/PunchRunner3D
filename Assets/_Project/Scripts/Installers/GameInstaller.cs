@@ -12,6 +12,7 @@ namespace Installers
         /// </summary>
         
         [TabGroup("UI Settings")]
+        [HideLabel]
         public UIManager.Settings _UISettings;
         public override void InstallBindings()
         {
