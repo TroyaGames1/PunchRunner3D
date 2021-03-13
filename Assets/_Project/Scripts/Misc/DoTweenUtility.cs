@@ -13,6 +13,10 @@ public class DoTweenUtility : MonoBehaviour
     [SerializeField] private bool _canScale;
 
     [SerializeField] private bool _reverse;
+
+    [SerializeField] private bool _canLoop;
+
+    [SerializeField] private bool _trigger;
     
     
     [SerializeField] private float _moveTo;
@@ -39,7 +43,6 @@ public class DoTweenUtility : MonoBehaviour
         {
 
             _endPos = transform.localPosition;
-            
             _tweenList.Add(transform
                 .DOLocalMove((_endPos)+Vector3.up*_moveTo, _moveDuration)
                 .SetEase(Ease.InOutQuad)
@@ -51,17 +54,39 @@ public class DoTweenUtility : MonoBehaviour
         {
             if (_reverse)
             {
-                _tweenList.Add( transform
-                    .DOLocalRotate(_rotateTo, _rotateDuration,
-                        RotateMode.FastBeyond360)
-                    .SetEase(_easeType).SetLoops(-1));
+                if (_canLoop)
+                {
+                    _tweenList.Add( transform
+                        .DOLocalRotate(_rotateTo, _rotateDuration,
+                            RotateMode.FastBeyond360)
+                        .SetEase(_easeType).SetLoops(-1));
+                }
+                else
+                {
+                    _tweenList.Add( transform
+                        .DOLocalRotate(_rotateTo, _rotateDuration,
+                            RotateMode.FastBeyond360)
+                        .SetEase(_easeType));
+                }
+              
             }
             else
             {
-                _tweenList.Add( transform
-                    .DOLocalRotate(_rotateTo, _rotateDuration, 
-                        RotateMode.FastBeyond360)
-                    .SetEase(_easeType).SetLoops(-1));  
+                if (_canLoop)
+                {
+                    _tweenList.Add( transform
+                        .DOLocalRotate(_rotateTo, _rotateDuration, 
+                            RotateMode.FastBeyond360)
+                        .SetEase(_easeType).SetLoops(-1));  
+                }
+                else
+                {
+                    _tweenList.Add(transform
+                        .DOLocalRotate(_rotateTo, _rotateDuration,
+                            RotateMode.FastBeyond360)
+                        .SetEase(_easeType));
+                }
+              
             }
           
         }
@@ -72,9 +97,20 @@ public class DoTweenUtility : MonoBehaviour
            .SetEase( Ease.InOutQuad).SetLoops(-1,LoopType.Yoyo)); 
         }
         
-     
-     
        
+    }
+
+  
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_trigger)
+        {
+            _tweenList.Add(transform
+                .DOLocalRotate(_rotateTo, _rotateDuration,
+                    RotateMode.FastBeyond360)
+                .SetEase(_easeType));
+        }
     }
 
     private void OnDisable()

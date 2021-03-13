@@ -109,7 +109,7 @@ public class ObstacleFacade : MonoBehaviour
     }
 
     private bool CanTakeHit=>
-        _canCheckRaycast && Physics.Raycast(transform.position, transform.forward,2 , _settings.HitLayerMask);
+        _canCheckRaycast && Physics.Raycast(transform.position, transform.forward,3 , _settings.HitLayerMask);
     
 
 

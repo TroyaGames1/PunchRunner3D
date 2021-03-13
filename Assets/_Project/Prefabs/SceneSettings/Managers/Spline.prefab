@@ -625,7 +625,6 @@ MonoBehaviour:
   _sampleMode: 0
   subscribers:
   - {fileID: 5325521891146214481}
-  - {fileID: 0}
   nodes: []
 --- !u!33 &5325521891146214483
 MeshFilter:
@@ -1144,6 +1143,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
