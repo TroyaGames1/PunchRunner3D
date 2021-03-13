@@ -24,7 +24,7 @@ MonoBehaviour:
       DefaultMovementSpeedFactor: 3.5
       CurrentMovementSpeedFactor: 0
     healthProjectSettings:
-      PlayerHP: 0.3
+      PlayerHP: 1
   obstacleSettings:
     PunchTime:
       defaultHitTime: 0.55

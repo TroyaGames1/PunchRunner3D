@@ -25,7 +25,7 @@ namespace PlayerState
         
         public void EnterState()
         {
-            
+
             Physics.reuseCollisionCallbacks = true;
 
             _uıManager.preGameUI.SetActive(true);
