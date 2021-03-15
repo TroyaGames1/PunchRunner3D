@@ -5,40 +5,40 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Level1.unity
     guid: 83b27fe533405644fa2b9577aadac891
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Level2.unity
     guid: 87ebaf4af2a1ffe41acb5ba73aa22534
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level1 1.unity
     guid: 1c8a4350e691efa459c8a4383481454f
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level2 1.unity
     guid: 10cbb5cde940c1246bd538cf3a88b177
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level1 2.unity
     guid: 50aad9e69e8ef174e84ea90385d9f258
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level2 2.unity
     guid: 4f8fd14e6472d524883b39b6b203f832
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level1 3.unity
     guid: a056522a7d3632747bdbb75a3374a474
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level2 3.unity
     guid: e848370d531c9c040824ac3592a884c1
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level1 4.unity
     guid: 0f4eca5e3574b5440835ea29bb9749aa
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level2 4.unity
     guid: c25c5f6d32728644aa8a93e8a0e20545
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level1 5.unity
     guid: a941956b623b9fc4db3b3f4f0e4bab35
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/Kopya/Level2 5.unity
     guid: 7120402beca56fb4eb72a032381d3050
   m_configObjects: {}

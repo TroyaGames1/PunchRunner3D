@@ -95,9 +95,8 @@ public class ReadmeEditor : Editor {
 			{
 				if (LinkLabel(new GUIContent(section.linkText)))
 				{
-					//Application.OpenURL(section.url);
-                    UnityEditorInternal.AssetStore.Open(section.url); 
-                }
+					Application.OpenURL(section.url);
+				}
 			}
 			GUILayout.Space(kSpace);
 		}
