@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8154207645184900288}
   - component: {fileID: 5074072610952146255}
   - component: {fileID: 2999830030925472478}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dikenler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,12 +118,12 @@ GameObject:
   - component: {fileID: 7895991695241865694}
   - component: {fileID: 1984234034397624626}
   - component: {fileID: 4809420541257949991}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "\xDCstG\xF6vde"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7895991695241865694
 Transform:
@@ -197,12 +197,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3326806599197850419}
-  m_Layer: 0
+  - component: {fileID: 8663693281301584670}
+  - component: {fileID: 8465467336293924885}
+  m_Layer: 8
   m_Name: "EngelT\u0131rt\u0131kl\u0131"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3326806599197850419
 Transform:
@@ -221,6 +223,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8663693281301584670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2693399234306941321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8146515, y: 3.7245593, z: 1.7965484}
+  m_Center: {x: -0.018104553, y: 1.5252097, z: -0.01810348}
+--- !u!114 &8465467336293924885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2693399234306941321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9713c242cc613c94fa9579689c3c2058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealtValue: -1
+  _canDestroyable: 0
 --- !u!1 &7382263668530913135
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,12 +261,12 @@ GameObject:
   - component: {fileID: 2877423433031695888}
   - component: {fileID: 3335063579202280867}
   - component: {fileID: 4828840275016386468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "G\xF6vde"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2877423433031695888
 Transform:

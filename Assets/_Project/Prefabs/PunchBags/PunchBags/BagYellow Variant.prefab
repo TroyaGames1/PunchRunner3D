@@ -11755,7 +11755,6 @@ GameObject:
   - component: {fileID: 5595507940350444730}
   - component: {fileID: 5595507940350444735}
   - component: {fileID: 3873364904926188512}
-  - component: {fileID: 5685266362685355551}
   m_Layer: 8
   m_Name: BagYellow Variant
   m_TagString: Obstacle
@@ -11840,8 +11839,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.03112255, y: 0.08468837, z: 0.04022572}
-  m_Center: {x: -0.0002180934, y: -0.015111471, z: 0.01011288}
+  m_Size: {x: 0.04133047, y: 0.08468837, z: 0.04022572}
+  m_Center: {x: 0, y: -0.015111471, z: 0.01011288}
 --- !u!114 &5595507940350444735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12027,20 +12026,6 @@ MonoBehaviour:
     m_Center: {x: 10.58, y: 1.9689004, z: 1.2}
     m_Extent: {x: 0.34000012, y: 0.83349925, z: 0.34000006}
   resetState: 0
---- !u!114 &5685266362685355551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4712547530061005755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b6b88d425f7234aae309cb9a973743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaximumStress: 0.05
-  Range: 45
 --- !u!1 &5045147692483769719
 GameObject:
   m_ObjectHideFlags: 0

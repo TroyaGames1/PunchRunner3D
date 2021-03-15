@@ -1,6 +1,7 @@
 ﻿using System;
 using Dreamteck.Splines;
 using PlayerState;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -12,12 +13,16 @@ namespace PlayerBehaviors
 
         Player _model;
         private PlayerStateManager _stateManager;
+        private Settings _settings;
+
+       
 
         [Inject]
-        public void Construct(Player player,PlayerStateManager stateManager)
+        public void Construct(Player player,PlayerStateManager stateManager,Settings settings)
         {
             _model = player;
             _stateManager = stateManager;
+            _settings = settings;
         }
 
         public bool IsDead => _model.IsDead;
@@ -47,14 +52,18 @@ namespace PlayerBehaviors
 
         }
 
-
-        public void OnDrawGizmos()
+        private void Awake()
         {
-            Debug.DrawRay(transform.position + 2 * Vector3.up, transform.forward, Color.red, 25);
-            Debug.DrawRay(transform.position + Vector3.forward / 5 + 2 * Vector3.up, transform.forward, Color.red, 25);
-            Debug.DrawRay(transform.position - Vector3.forward / 5 + 2 * Vector3.up, transform.forward, Color.red, 25);
+            this.ObserveEveryValueChanged(x => SplineFollower.followSpeed)
+                .Where(x => x == 0).Subscribe(x => _settings.WindParticle.SetActive(false));this.ObserveEveryValueChanged(x => SplineFollower.followSpeed)
+                .Where(x => x != 0).Subscribe(x => _settings.WindParticle.SetActive(true));
 
-          
+        }
+
+        [Serializable]
+        public struct Settings
+        {
+            public GameObject WindParticle;
         }
   
     }

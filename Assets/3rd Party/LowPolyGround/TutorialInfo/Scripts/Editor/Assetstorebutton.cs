@@ -48,7 +48,7 @@ public class Assetstorebutton : Editor
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("AssetStore", GUILayout.ExpandWidth(false), GUILayout.Width(AssetImage.width)))
             {
-                myScript.m_Assetstorebutton(AssetLink);
+                //myScript.m_Assetstorebutton(AssetLink);
             }
             GUILayout.FlexibleSpace();
         }

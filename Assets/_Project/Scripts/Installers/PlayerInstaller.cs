@@ -36,6 +36,7 @@ namespace Installers
         private void InstallSettings()
         {
             Container.BindInstance(_playerSettings.HealthHandler);
+            Container.BindInstance(_playerSettings.WindsSettings);
         }
 
         private void InstallPlayerHandlers()
@@ -75,6 +76,9 @@ namespace Installers
             [TabGroup("HealtSettings")]
             [HideLabel]
             public PlayerHealthHandler.SceneSettings HealthHandler;
+
+            [TabGroup("WindSettings")] [HideLabel]
+            public PlayerFacade.Settings WindsSettings;
         }
     }
 }
