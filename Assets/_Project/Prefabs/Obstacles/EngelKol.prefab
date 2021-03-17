@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 7552108268441806232}
   - component: {fileID: 2025639172098217746}
   - component: {fileID: 5176780179837927608}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Boxing Glove.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}

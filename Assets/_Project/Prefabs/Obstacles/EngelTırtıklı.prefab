@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8154207645184900288}
   - component: {fileID: 5074072610952146255}
   - component: {fileID: 2999830030925472478}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Dikenler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7895991695241865694}
   - component: {fileID: 1984234034397624626}
   - component: {fileID: 4809420541257949991}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: "\xDCstG\xF6vde"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 3326806599197850419}
   - component: {fileID: 8663693281301584670}
   - component: {fileID: 8465467336293924885}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: "EngelT\u0131rt\u0131kl\u0131"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 2877423433031695888}
   - component: {fileID: 3335063579202280867}
   - component: {fileID: 4828840275016386468}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: "G\xF6vde"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

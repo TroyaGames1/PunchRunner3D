@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5325521891146214480}
   - component: {fileID: 5325521891146214481}
   - component: {fileID: 5325521891146214485}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}

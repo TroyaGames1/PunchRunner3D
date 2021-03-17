@@ -49,7 +49,10 @@ namespace PlayerBehaviors
             _observables.PlayerTriggerEnterObservable.Where(x => !x.CompareTag("Obstacle"))
                 .Subscribe(x => _canCheckRaycast = false);
             _observables.PlayerCollisionEnterObservable.Where(x => !x.collider.CompareTag("Obstacle"))
-                .Subscribe(x => _canCheckRaycast = false);
+                .Subscribe(x =>
+                {
+                    _canCheckRaycast = false;
+                });
             
             _tickableManager.TickStream
                 .Where(x => _canCheckRaycast&&
@@ -87,7 +90,7 @@ namespace PlayerBehaviors
             switch (_stateEnum)
             {
                 case StateENUM.WALKING:
-                    Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(x => _canCheckRaycast = false);
+                   Observable.Timer(TimeSpan.FromSeconds(0.1f)).Subscribe(x => _canCheckRaycast = false);
                     _signalBus.AbstractFire(
                     new SignalChangeSpeedMovementFactorAndAnimation("WALK", 
                         _moveHandler.GetDefaultSplineSpeed,_moveHandler.GetDefaultMoveFactor));
@@ -104,17 +107,17 @@ namespace PlayerBehaviors
         
         #region Raycasts
 
-        private bool CanMove => !RayCastForward&& !RayCastRight && !RayCastLeft;
+        private bool CanMove => RayCastForward && RayCastRight && RayCastLeft;
         private bool RayCastForward =>
-            Physics.Raycast(_player.Position + 1 * Vector3.up,
+            !Physics.Raycast(_player.Position + 1 * Vector3.up,
                 _player.GO.transform.forward, out _hit,0.7f, _settings.RaycastLayer);
 
-        private bool RayCastRight=>Physics.Raycast(_player.Position+Vector3.forward/6 +1*Vector3.up, 
+        private bool RayCastRight=>!Physics.Raycast(_player.Position+Vector3.forward/6 +1*Vector3.up, 
             _player.GO.transform.forward, 0.7f,_settings.RaycastLayer);
-        private bool RayCastLeft=>Physics.Raycast(_player.Position-Vector3.forward/6 +1*Vector3.up, 
+        private bool RayCastLeft=>!Physics.Raycast(_player.Position-Vector3.forward/6 +1*Vector3.up, 
             _player.GO.transform.forward, 0.7f,_settings.RaycastLayer);
-       
 
+       
         #endregion
         
         [Serializable]

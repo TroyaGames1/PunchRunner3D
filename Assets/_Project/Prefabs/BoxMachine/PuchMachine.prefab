@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 315451108260057307}
   - component: {fileID: 1745098859815728984}
   - component: {fileID: 2596044513713070919}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: HitGo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3666321062789439952}
   - component: {fileID: 1498137674526720420}
   - component: {fileID: 3679369058210991994}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3580734943441259708}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Others
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 7959107269509743303}
   - component: {fileID: 562818845123590084}
   - component: {fileID: 3831154130190278586}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: X1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 5922323869218606974}
   - component: {fileID: 6149702488624069618}
   - component: {fileID: 7220517487971000801}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: X2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +504,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8431579827692133552}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: PlayerPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 8023099358208188337}
   - component: {fileID: 1314053293788888155}
   - component: {fileID: 7026601783777730254}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: X3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 3786449698664174506}
   - component: {fileID: 3773862392290755721}
   - component: {fileID: 270658973928633920}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6474075062053110727}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: ParticleEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 6959241752807770126}
   - component: {fileID: 6522238629137364188}
   - component: {fileID: 6325621988457419168}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: X5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 6485866429580123478}
   - component: {fileID: 7145450623792503986}
   - component: {fileID: 2746350419470740767}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: X4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 5057952991036742733}
   - component: {fileID: 1776307660652696866}
   - component: {fileID: 4059207906986589094}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 4634366585764051635}
   - component: {fileID: 4156191661232917549}
   - component: {fileID: 5524737655501672690}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 8368028170692780502}
   - component: {fileID: 3545525518032548954}
   - component: {fileID: 2008795101981172088}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: PuchMachine
   m_TagString: BoxMachine
   m_Icon: {fileID: 0}
@@ -1277,8 +1277,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1465566, y: 5.5817714, z: 2.8824875}
-  m_Center: {x: -0.45441872, y: 2.7730849, z: -0.9412442}
+  m_Size: {x: 9.575729, y: 5.5817714, z: 2.8824875}
+  m_Center: {x: 0, y: 2.7730849, z: -0.9412442}
 --- !u!114 &2008795101981172088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,6 +1304,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6474075062053110727}
     m_Modifications:
     - target: {fileID: 1106739188997080, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106739188997080, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1312,12 +1316,20 @@ PrefabInstance:
       value: Left
       objectReference: {fileID: 0}
     - target: {fileID: 1674303511358002, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674303511358002, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1674303511358002, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1786643156691122, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1786643156691122, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1419,6 +1431,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6474075062053110727}
     m_Modifications:
     - target: {fileID: 1106739188997080, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106739188997080, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1427,12 +1443,20 @@ PrefabInstance:
       value: Right
       objectReference: {fileID: 0}
     - target: {fileID: 1674303511358002, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674303511358002, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1674303511358002, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1786643156691122, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1786643156691122, guid: 08abdc5d49d191f4580bb4c00a82d6fb, type: 3}
       propertyPath: m_StaticEditorFlags
