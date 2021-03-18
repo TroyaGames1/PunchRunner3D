@@ -19,8 +19,7 @@ namespace Dreamteck.Splines.Editor
         protected ColorModifierEditor colorModifierEditor;
         protected SizeModifierEditor sizeModifierEditor;
         protected SplineUser[] users = new SplineUser[0];
-        protected SerializedObject serializedUsers;
-        SerializedProperty multithreaded, updateMethod, buildOnAwake, buildOnEnable, autoUpdate, loopSamples, clipFrom, clipTo;
+        SerializedProperty multithreadedProperty, updateMethodProperty, buildOnAwakeProperty, buildOnEnableProperty, autoUpdateProperty, loopSamplesProperty, clipFromProperty, clipToProperty;
         protected GUIStyle foldoutHeaderStyle;
 
         bool doRebuild = false;
@@ -47,7 +46,6 @@ namespace Dreamteck.Splines.Editor
         protected virtual void HeaderGUI()
         {
             SplineUser user = (SplineUser)target;
-
             Undo.RecordObject(user, "Inspector Change");
             SplineComputer lastSpline = (SplineComputer)spline.objectReferenceValue;
             EditorGUILayout.PropertyField(spline);
@@ -70,11 +68,11 @@ namespace Dreamteck.Splines.Editor
             {
                 EditorGUI.indentLevel++;
                 if (showClip) InspectorClipEdit();
-                if (showUpdateMethod) EditorGUILayout.PropertyField(updateMethod);
-                EditorGUILayout.PropertyField(autoUpdate, new GUIContent("Auto Rebuild"));
-                if (showMultithreading) EditorGUILayout.PropertyField(multithreaded);
-                EditorGUILayout.PropertyField(buildOnAwake);
-                EditorGUILayout.PropertyField(buildOnEnable);
+                if (showUpdateMethod) EditorGUILayout.PropertyField(updateMethodProperty);
+                EditorGUILayout.PropertyField(autoUpdateProperty, new GUIContent("Auto Rebuild"));
+                if (showMultithreading) EditorGUILayout.PropertyField(multithreadedProperty);
+                EditorGUILayout.PropertyField(buildOnAwakeProperty);
+                EditorGUILayout.PropertyField(buildOnEnableProperty);
                 EditorGUI.indentLevel--;
             }
         }
@@ -90,10 +88,8 @@ namespace Dreamteck.Splines.Editor
                 else if (!users[i].loopSamples) loopSamples = false;
             }
 
-            float clipFrom = 0f, clipTo = 1f;
-            clipFrom = this.clipFrom.floatValue;
-            clipTo = this.clipTo.floatValue;
-            EditorGUI.BeginChangeCheck();
+            float clipFrom = clipFromProperty.floatValue;
+            float clipTo = clipToProperty.floatValue;
 
             if (isClosed && loopSamples)
             {
@@ -111,7 +107,6 @@ namespace Dreamteck.Splines.Editor
             }
             else
             {
-
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.BeginHorizontal();
                 if (EditButton(_editIndex == 0))
@@ -128,22 +123,20 @@ namespace Dreamteck.Splines.Editor
                 clipTo = EditorGUILayout.FloatField(clipTo);
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndHorizontal();
+               
             }
-            if (EditorGUI.EndChangeCheck())
-            {
-                this.clipFrom.floatValue = clipFrom;
-                this.clipTo.floatValue = clipTo;
-            }
+            clipFromProperty.floatValue = clipFrom;
+            clipToProperty.floatValue = clipTo;
             SplineComputerEditor.hold = _editIndex >= 0;
 
-            if (isClosed) EditorGUILayout.PropertyField(this.loopSamples, new GUIContent("Loop Samples"));
-            if (!this.loopSamples.boolValue || !isClosed)
+            if (isClosed) EditorGUILayout.PropertyField(loopSamplesProperty, new GUIContent("Loop Samples"));
+            if (!loopSamplesProperty.boolValue || !isClosed)
             {
-                if (this.clipFrom.floatValue > this.clipTo.floatValue)
+                if (clipFromProperty.floatValue > clipToProperty.floatValue)
                 {
-                    float temp = this.clipTo.floatValue;
-                    this.clipTo.floatValue = this.clipFrom.floatValue;
-                    this.clipFrom.floatValue = temp;
+                    float temp = clipToProperty.floatValue;
+                    clipToProperty.floatValue = clipFromProperty.floatValue;
+                    clipFromProperty.floatValue = temp;
                 }
             }
         }
@@ -171,7 +164,10 @@ namespace Dreamteck.Splines.Editor
 
         protected virtual void OnSceneGUI()
         {
-            if (doRebuild) DoRebuild();
+            if (doRebuild)
+            {
+                DoRebuild();
+            }
             SplineUser user = (SplineUser)target;
             if (user == null) return;
             if (user.spline != null)
@@ -212,81 +208,73 @@ namespace Dreamteck.Splines.Editor
         {
             base.OnInspectorGUI();
             if (doRebuild) DoRebuild();
-            serializedUsers = new SerializedObject(users);
-            updateMethod = serializedUsers.FindProperty("updateMethod");
-            buildOnAwake = serializedUsers.FindProperty("buildOnAwake");
-            buildOnEnable = serializedUsers.FindProperty("buildOnEnable");
-            multithreaded = serializedUsers.FindProperty("multithreaded");
-            autoUpdate = serializedUsers.FindProperty("_autoUpdate");
-            SerializedProperty sampleCollection = serializedUsers.FindProperty("sampleCollection");
-            loopSamples = sampleCollection.FindPropertyRelative("loopSamples");
-            clipFrom = sampleCollection.FindPropertyRelative("clipFrom");
-            clipTo = sampleCollection.FindPropertyRelative("clipTo"); ;
-            spline = serializedUsers.FindProperty("_spline");
+            serializedObject.Update();
 
             EditorGUI.BeginChangeCheck();
             HeaderGUI();
             if (EditorGUI.EndChangeCheck())
             {
-                serializedUsers.ApplyModifiedProperties();
-                for (int i = 0; i < users.Length; i++)
-                {
-                    EditorUtility.SetDirty(users[i]);
-                    users[i].Rebuild();
-                }
+                ApplyAndRebuild();
             }
 
             EditorGUI.BeginChangeCheck();
             BodyGUI();
             if (EditorGUI.EndChangeCheck())
             {
-                serializedUsers.ApplyModifiedProperties();
-                for (int i = 0; i < users.Length; i++)
-                {
-                    try
-                    {
-                        EditorUtility.SetDirty(users[i]);
-                        users[i].Rebuild();
-                    } catch (System.Exception ex)
-                    {
-                        Debug.Log(ex.Message);
-                    }
-                }
+                ApplyAndRebuild();
             }
 
             EditorGUI.BeginChangeCheck();
             FooterGUI();
             if (EditorGUI.EndChangeCheck())
             {
-                serializedUsers.ApplyModifiedProperties();
-                for (int i = 0; i < users.Length; i++)
-                {
-                    EditorUtility.SetDirty(users[i]);
-                    users[i].Rebuild();
-                }
+                ApplyAndRebuild();
             }
         }
 
-        void DoRebuild()
+        private void ApplyAndRebuild()
         {
-            for (int i = 0; i < users.Length; i++) users[i].Rebuild();
+            serializedObject.ApplyModifiedProperties();
+            DoRebuild();
+        }
+
+        private void DoRebuild()
+        {
+            for (int i = 0; i < users.Length; i++)
+            {
+                if (users[i] && users[i].isActiveAndEnabled)
+                {
+                    try
+                    {
+                        users[i].Rebuild();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Debug.Log(ex.Message);
+                    }
+                }
+            }
             doRebuild = false;
         }
 
         protected virtual void OnDestroy()
         {
-            SplineUser user = (SplineUser)target;
             if (Application.isEditor && !Application.isPlaying)
             {
-                if (user == null) OnDelete(); //The object or the component is being deleted
-                else if (user.spline != null) user.Rebuild();
+                if (target == null)
+                {
+                    OnDelete(); //The object or the component is being deleted
+                }
+                else
+                {
+                    DoRebuild();
+                }
             }
             SplineComputerEditor.hold = false;
         }
 
         protected virtual void OnDelete()
         {
-
         }
 
         protected virtual void Awake()
@@ -301,18 +289,33 @@ namespace Dreamteck.Splines.Editor
         protected virtual void OnEnable()
         {
             SplineUser user = (SplineUser)target;
-            user.EditorAwake();
+            
             settingsFoldout = EditorPrefs.GetBool("Dreamteck.Splines.Editor.SplineUserEditor.settingsFoldout", false);
-
             rotationModifierEditor = new RotationModifierEditor(user, this, user.rotationModifier);
             offsetModifierEditor = new OffsetModifierEditor(user, this, user.offsetModifier);
             colorModifierEditor = new ColorModifierEditor(user, this, user.colorModifier);
             sizeModifierEditor = new SizeModifierEditor(user, this, user.sizeModifier);
 
-            users = new SplineUser[targets.Length];
-            for (int i = 0; i < users.Length; i++) users[i] = (SplineUser)targets[i];
-            Undo.undoRedoPerformed += OnUndoRedo;
+            updateMethodProperty = serializedObject.FindProperty("updateMethod");
+            buildOnAwakeProperty = serializedObject.FindProperty("buildOnAwake");
+            buildOnEnableProperty = serializedObject.FindProperty("buildOnEnable");
+            multithreadedProperty = serializedObject.FindProperty("multithreaded");
+            autoUpdateProperty = serializedObject.FindProperty("_autoUpdate");
+            loopSamplesProperty = serializedObject.FindProperty("_loopSamples");
+            clipFromProperty = serializedObject.FindProperty("_clipFrom");
+            clipToProperty = serializedObject.FindProperty("_clipTo");
+            spline = serializedObject.FindProperty("_spline");
 
+            users = new SplineUser[targets.Length];
+            for (int i = 0; i < users.Length; i++)
+            {
+                users[i] = (SplineUser)targets[i];
+                if (users[i].isActiveAndEnabled)
+                {
+                    user.EditorAwake();
+                }
+            }
+            Undo.undoRedoPerformed += OnUndoRedo;
         }
 
 
@@ -330,7 +333,7 @@ namespace Dreamteck.Splines.Editor
         public bool EditButton(bool selected)
         {
             float width = 40f;
-            editButtonContent.image = ImageDB.GetImage("edit_cursor.png", "Splines/Editor/Icons");
+            editButtonContent.image = ResourceUtility.EditorLoadTexture("Splines/Editor/Icons", "edit_cursor");
             if (editButtonContent.image != null)
             {
                 editButtonContent.text = "";

@@ -55,7 +55,10 @@ namespace Dreamteck.Splines.Editor
         public override void DrawScene()
         {
             base.DrawScene();
-            if (Event.current.type == EventType.MouseUp) GetSplineLength();
+            if (Event.current.type == EventType.MouseUp && open)
+            {
+                GetSplineLength();
+            }
         }
     }
 }

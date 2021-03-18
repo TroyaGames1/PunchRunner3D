@@ -5,6 +5,7 @@ namespace Dreamteck.Splines.Editor
     using System.Collections.Generic;
 
     [CustomEditor(typeof(Node), true)]
+    [CanEditMultipleObjects]
     public class NodeEditor : Editor {
         private SplineComputer addComp = null;
         private int addPoint = 0;
@@ -14,68 +15,98 @@ namespace Dreamteck.Splines.Editor
         private int[] availablePoints;
         bool connectionsOpen = false, settingsOpen = false;
 
+        private SerializedProperty transformNormals, transformSize, transformTangents, type;
+        private Node[] nodes = new Node[0];
+        private SerializedObject serializedNodes;
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
             Node node = (Node)target;
-            if (addComp != null)
+            if (nodes.Length == 1)
             {
-                string[] pointNames = new string[availablePoints.Length];
-                for (int i = 0; i < pointNames.Length; i++)
+                if (addComp != null)
                 {
-                    pointNames[i] = "Point " + (availablePoints[i] + 1);
-                }
-                if (availablePoints.Length > 0) addPoint = EditorGUILayout.Popup("Link point", addPoint, pointNames);
-                else EditorGUILayout.LabelField("No Points Available");
-
-                if (GUILayout.Button("Cancel"))
-                {
-                    addComp = null;
-                    addPoint = 0;
-                }
-                if (addPoint >= 0 && availablePoints.Length > addPoint)
-                {
-                    if (node.HasConnection(addComp, availablePoints[addPoint])) EditorGUILayout.HelpBox("Connection already exists (" + addComp.name + "," + availablePoints[addPoint], MessageType.Error);
-                    else if (GUILayout.Button("Link"))
+                    string[] pointNames = new string[availablePoints.Length];
+                    for (int i = 0; i < pointNames.Length; i++)
                     {
-                        AddConnection(addComp, availablePoints[addPoint]);
+                        pointNames[i] = "Point " + (availablePoints[i] + 1);
+                    }
+                    if (availablePoints.Length > 0) addPoint = EditorGUILayout.Popup("Link point", addPoint, pointNames);
+                    else EditorGUILayout.LabelField("No Points Available");
+
+                    if (GUILayout.Button("Cancel"))
+                    {
+                        addComp = null;
+                        addPoint = 0;
+                    }
+                    if (addPoint >= 0 && availablePoints.Length > addPoint)
+                    {
+                        if (node.HasConnection(addComp, availablePoints[addPoint])) EditorGUILayout.HelpBox("Connection already exists (" + addComp.name + "," + availablePoints[addPoint], MessageType.Error);
+                        else if (GUILayout.Button("Link"))
+                        {
+                            AddConnection(addComp, availablePoints[addPoint]);
+                        }
                     }
                 }
-            }
-            else
+                else
+                {
+                    SplineEditorGUI.BeginContainerBox(ref connectionsOpen, "Connections");
+                    if (connectionsOpen)
+                    {
+                        ConnectionsGUI();
+                    }
+                    SplineEditorGUI.EndContainerBox();
+
+                    Rect rect = GUILayoutUtility.GetLastRect();
+                    SplineComputer[] addComps;
+                    SplineComputer lastComp = addComp;
+                    bool dragged = DreamteckEditorGUI.DropArea<SplineComputer>(rect, out addComps);
+                    if (dragged && addComps.Length > 0)
+                    {
+                        SelectComputer(addComps[0]);
+                    }
+
+                    if (lastComp != addComp)
+                    {
+                        SceneView.RepaintAll();
+                    }
+                }
+            } else
             {
-                SplineEditorGUI.BeginContainerBox(ref connectionsOpen, "Connections");
-                if (connectionsOpen) ConnectionsGUI();
-                SplineEditorGUI.EndContainerBox();
-
-                Rect rect = GUILayoutUtility.GetLastRect();
-                SplineComputer[] addComps;
-                SplineComputer lastComp = addComp;
-                bool dragged = DreamteckEditorGUI.DropArea<SplineComputer>(rect, out addComps);
-                if (dragged && addComps.Length > 0) SelectComputer(addComps[0]);
-                if (lastComp != addComp) SceneView.RepaintAll();
-
-
-                SplineEditorGUI.BeginContainerBox(ref settingsOpen, "Settings");
-                if (settingsOpen) SettingsGUI();
-                SplineEditorGUI.EndContainerBox();
-
-                
+                EditorGUILayout.HelpBox("Connection UI not available when multiple Nodes are selected.", MessageType.Info);
             }
+
+            SplineEditorGUI.BeginContainerBox(ref settingsOpen, "Settings");
+            if (settingsOpen)
+            {
+                SettingsGUI();
+            }
+            SplineEditorGUI.EndContainerBox();
         }
 
-        void SettingsGUI()
+        private void SettingsGUI()
         {
             Node node = (Node)target;
-            node.transformNormals = EditorGUILayout.Toggle("Transform Normals", node.transformNormals);
-            node.transformSize = EditorGUILayout.Toggle("Transform Size", node.transformSize);
-            node.transformTangents = EditorGUILayout.Toggle("Transform Tangents", node.transformTangents);
+            serializedNodes = new SerializedObject(nodes);
+            transformNormals = serializedNodes.FindProperty("_transformNormals");
+            transformSize = serializedNodes.FindProperty("_transformSize");
+            transformTangents = serializedNodes.FindProperty("_transformTangents");
+            type = serializedNodes.FindProperty("type");
+
 
             EditorGUI.BeginChangeCheck();
-            node.type = (Node.Type)EditorGUILayout.EnumPopup("Node type", node.type);
+
+            EditorGUILayout.PropertyField(transformNormals, new GUIContent("Transform Normals"));
+            EditorGUILayout.PropertyField(transformSize, new GUIContent("Transform Size"));
+            EditorGUILayout.PropertyField(transformTangents, new GUIContent("Transform Tangents"));
+            EditorGUILayout.PropertyField(type, new GUIContent("Node Type"));
+
             if (EditorGUI.EndChangeCheck())
             {
                 SceneView.RepaintAll();
+                serializedNodes.ApplyModifiedProperties();
+                node.UpdatePoints();
                 node.UpdateConnectedComputers();
             }
         }
@@ -118,10 +149,15 @@ namespace Dreamteck.Splines.Editor
 
         void OnEnable()
         {
-            lastnode = ((Node)target);
+            lastnode = (Node)target;
             lastnode.EditorMaintainConnections();
             connectionsOpen = EditorPrefs.GetBool("Dreamteck.Splines.Editor.NodeEditor.connectionsOpen");
             settingsOpen = EditorPrefs.GetBool("Dreamteck.Splines.Editor.NodeEditor.settingsOpen");
+            nodes = new Node[targets.Length];
+            for (int i = 0; i < targets.Length; i++)
+            {
+                nodes[i] = (Node)targets[i];
+            }
         }
 
         private void OnDisable()

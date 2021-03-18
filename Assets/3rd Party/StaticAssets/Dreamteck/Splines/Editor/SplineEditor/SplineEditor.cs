@@ -166,7 +166,19 @@ namespace Dreamteck.Splines.Editor
         {
             if(Event.current.type == EventType.KeyDown)
             {
-                if ((Event.current.control && Event.current.keyCode == KeyCode.E) || (editMode && Event.current.keyCode == KeyCode.Escape)) {
+                if (editMode && Event.current.keyCode == KeyCode.Escape)
+                {
+                    if(module >= 0)
+                    {
+                        UntoggleCurrentModule();
+                        Repaint();
+                    } else
+                    {
+                        editMode = false;
+                        Repaint();
+                    }
+                }
+                if (Event.current.control && Event.current.keyCode == KeyCode.E) {
                     editMode = !editMode;
                     Repaint();
                 }
@@ -207,7 +219,10 @@ namespace Dreamteck.Splines.Editor
             selectModule = module;
             EditorGUI.BeginChangeCheck();
             toolbar.Draw(ref selectModule);
-            if (EditorGUI.EndChangeCheck()) ToggleModule(selectModule);
+            if (EditorGUI.EndChangeCheck())
+            {
+                ToggleModule(selectModule);
+            }
             
             EditorGUILayout.EndHorizontal();
         }

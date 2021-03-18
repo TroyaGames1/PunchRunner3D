@@ -44,19 +44,17 @@ namespace Dreamteck.Splines.Editor
                 extrudeClipFrom.floatValue = clipFrom;
                 extrudeClipTo.floatValue = clipTo;
             }
+            bool change = false;
             if (EditorGUI.EndChangeCheck())
             {
-                for (int i = 0; i < users.Length; i++)
-                {
-                    users[i].Rebuild();
-                }
-                serializedObject.ApplyModifiedProperties();
+                change = true;
             }
 
             UVControls(user);
 
             if (extrude.floatValue != 0f || extrudeSpline.objectReferenceValue != null)
             {
+                EditorGUI.BeginChangeCheck();
                 SerializedProperty sideUvOffset = serializedObject.FindProperty("_sideUvOffset");
                 SerializedProperty sideUvScale = serializedObject.FindProperty("_sideUvScale");
                 SerializedProperty uniformUvs = serializedObject.FindProperty("_uniformUvs");
@@ -64,8 +62,20 @@ namespace Dreamteck.Splines.Editor
                 EditorGUILayout.PropertyField(sideUvOffset, new GUIContent("Side UV Offset"));
                 EditorGUILayout.PropertyField(sideUvScale, new GUIContent("Side UV Scale"));
                 EditorGUILayout.PropertyField(uniformUvs, new GUIContent("Unform UVs"));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    change = true;
+                }
             }
 
+            if (change)
+            {
+                for (int i = 0; i < users.Length; i++)
+                {
+                    users[i].Rebuild();
+                }
+                serializedObject.ApplyModifiedProperties();
+            }
         }  
     }
 }

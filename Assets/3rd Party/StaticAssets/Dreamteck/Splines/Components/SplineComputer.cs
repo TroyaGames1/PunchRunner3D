@@ -490,11 +490,10 @@ namespace Dreamteck.Splines
         /// <param name="input">The SplineUser to subscribe</param>
         public void Subscribe(SplineUser input)
         {
-            for (int i = 0; i < subscribers.Length; i++)
+            if (!IsSubscribed(input))
             {
-                if (subscribers[i] == input) return;
+                ArrayUtility.Add(ref subscribers, input);
             }
-            ArrayUtility.Add(ref subscribers, input);
         }
 
         /// <summary>
@@ -1071,9 +1070,19 @@ namespace Dreamteck.Splines
             {
                 if (subscribers[i] != null)
                 {
-                    if (subscribers[i].spline != this) ArrayUtility.RemoveAt(ref subscribers, i);
-                    else subscribers[i].Rebuild();
-                } else ArrayUtility.RemoveAt(ref subscribers, i);
+                    if (subscribers[i].spline != this)
+                    {
+                        ArrayUtility.RemoveAt(ref subscribers, i);
+                    }
+                    else if(subscribers[i].isActiveAndEnabled)
+                    {
+                        subscribers[i].Rebuild();
+                    }
+                }
+                else
+                {
+                    ArrayUtility.RemoveAt(ref subscribers, i);
+                }
             }
             if (onRebuild != null) onRebuild();
             queueRebuild = false;

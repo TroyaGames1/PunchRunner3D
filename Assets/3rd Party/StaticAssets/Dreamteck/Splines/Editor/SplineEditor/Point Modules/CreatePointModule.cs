@@ -11,7 +11,7 @@ using System.Collections.Generic;
         public enum PlacementMode { YPlane, XPlane, ZPlane, CameraPlane, Surface, Insert }
         public enum NormalMode { Default, LookAtCamera, AlignWithCamera, Calculate, Left, Right, Up, Down, Forward, Back }
         protected PlacementMode placementMode = PlacementMode.YPlane;
-        public AppendMode appendMode = 0;
+        public AppendMode appendMode = AppendMode.End;
         public float offset = 0f;
         public NormalMode normalMode = NormalMode.Default;
         public LayerMask surfaceLayerMask = new LayerMask();
@@ -135,10 +135,19 @@ using System.Collections.Generic;
             if (placementMode == PlacementMode.Insert)
             {
                 canCreate = true;
-                if (points.Length < 2) placementMode = PlacementMode.YPlane;
-                else InsertMode(Event.current.mousePosition);
+                if (points.Length < 2)
+                {
+                    placementMode = PlacementMode.YPlane;
+                }
+                else
+                {
+                    InsertMode(Event.current.mousePosition);
+                }
             }
-            else if (eventModule.mouseLeftDown && canCreate && !eventModule.mouseRight) CreateSplinePoint(createPoint, createNormal);
+            else if (eventModule.mouseLeftDown && canCreate && !eventModule.mouseRight && !eventModule.alt)
+            {
+                CreateSplinePoint(createPoint, createNormal);
+            }
 
             if(lastCreated >= 0 && lastCreated < points.Length && editor.eventModule.mouseLeft)
             {

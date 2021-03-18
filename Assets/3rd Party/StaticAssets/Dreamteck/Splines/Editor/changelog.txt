@@ -1,3 +1,25 @@
+----- 2.02 -----
+FIX: Fixed editor freeze when selecting splines in projects with an extensive folder amount
+FIX: Set the default Append mode for the point creation tool to "Ending" so that splines are not created reversed by default
+FIX: Prevented disabled SplineUsers from updating upon being selected/deselected in the editor
+FIX: Fixed undo / redo for Nodes
+FIX: Multiple Nodes can now be edited at once
+FIX: Fixed inaccuracy in the Length Calculator component when clip range is different than [0-1]
+FIX: Fixed scaling tool behavior when using the scale handle, releasing the mouse and using again
+FIX: Fixed the skipping issue in the Train example scene
+FIX: Fixed value editing when multiple Spline Followers are selected in the editor
+FIX: Fixed setting of the Side UV offset and scale values of Surface Generator in the Inspector window
+FIX: Fixed Object Bender behavior when the spline along which the bending is done is attached to the root object of the Object Bender
+FIX: Fixed reverted spline point positions when selecting Node Objectes which have been created using the "Create Node" option in the create point tool
+FIX: When in point creation mode, holding alt and left-clicking no longer creates spline points
+
+FEATURE: Pressing escape while using a spline editing tool will toggle the tool off. Pressing escape with an untoggled tool will toggle edit mode off
+FEATURE: Added a feature to preserve the follow speed of a follower if there is an offset defined in the Motion panel
+
+API: Refactored the SampleCollection class and took out the clipFrom - clipTo properties for stability reasons. clipFrom and clipTo are now only properties of SplineUser
+API: The SplineFollower's onBeginningReached and onEndReached now pass a double argument with the follower's percent from the previous frame. 
+
+
 ----- 2.01 -----
 FIX: Fixed the annoying NullReferenceException issue in the Welcome Screen
 FIX: Implemented nsxdavid's fix (Unity Forum) for the Layermask field
@@ -24,7 +46,6 @@ SUPPORT: Minimum supported Unity version is now 2017.2
 
 
 ----- 2.00 -----
-
 FEATURE: Editor UI upgrade
 FEATURE: Completely new Spline Editor written from scratch to be faster, more flexible and intuitive
 FEATURE: Added the "Optimized" sample mode for the Spline Computer which removes spline samples at straight segments to reduce polycount and memory (uses more CPU)

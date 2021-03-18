@@ -23,7 +23,10 @@
             SplineTracer tracer = (SplineTracer)target;
             motionEditor = new TransformModuleEditor(tracer, this, tracer.motion);
             tracers = new SplineTracer[targets.Length];
-            for (int i = 0; i < tracers.Length; i++) tracers[i] = (SplineTracer)targets[i];
+            for (int i = 0; i < tracers.Length; i++)
+            {
+                tracers[i] = (SplineTracer)targets[i];
+            }
         }
 
         private int GetRTWidth()

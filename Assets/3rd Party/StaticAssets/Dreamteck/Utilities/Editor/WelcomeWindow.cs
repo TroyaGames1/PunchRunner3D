@@ -48,6 +48,11 @@ namespace Dreamteck
             header = null;
         }
 
+        protected void OnEnable()
+        {
+            init = true;
+        }
+
         protected void OnGUI()
         {
             if (init)
@@ -270,7 +275,8 @@ namespace Dreamteck
                     description = d;
                     thumbnailPath = path;
                     thumbnailName = fileName;
-                    thumbnail = ImageDB.GetImage(thumbnailName, thumbnailPath);
+                    
+                    thumbnail = ResourceUtility.EditorLoadTexture(thumbnailPath, thumbnailName);
                 }
 
                 internal override void Draw()

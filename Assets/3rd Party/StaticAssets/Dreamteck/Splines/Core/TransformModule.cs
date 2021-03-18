@@ -7,7 +7,7 @@ namespace Dreamteck.Splines
 {
 
     [System.Serializable]
-    public class TransformModule
+    public class TransformModule : ISerializationCallbackReceiver
     {
         public Vector2 offset
         {
@@ -17,7 +17,11 @@ namespace Dreamteck.Splines
                 if (value != _offset)
                 {
                     _offset = value;
-                    if (targetUser != null) targetUser.Rebuild();
+                    _hasOffset = _offset != Vector2.zero;
+                    if (targetUser != null)
+                    {
+                        targetUser.Rebuild();
+                    }
                 }
             }
         }
@@ -29,10 +33,25 @@ namespace Dreamteck.Splines
                 if (value != _rotationOffset)
                 {
                     _rotationOffset = value;
-                    if (targetUser != null) targetUser.Rebuild();
+                    _hasRotationOffset = _rotationOffset != Vector3.zero;
+                    if (targetUser != null)
+                    {
+                        targetUser.Rebuild();
+                    }
                 }
             }
         }
+
+        public bool hasOffset
+        {
+            get { return _hasOffset; }
+        }
+
+        public bool hasRotationOffset
+        {
+            get { return _hasRotationOffset; }
+        }
+
         public Vector3 baseScale
         {
             get { return _baseScale; }
@@ -41,11 +60,19 @@ namespace Dreamteck.Splines
                 if (value != _baseScale)
                 {
                     _baseScale = value;
-                    if (targetUser != null) targetUser.Rebuild();
+                    if (targetUser != null)
+                    {
+                        targetUser.Rebuild();
+                    }
                 }
             }
         }
-
+        [SerializeField]
+        [HideInInspector]
+        private bool _hasOffset = false;
+        [SerializeField]
+        [HideInInspector]
+        private bool _hasRotationOffset = false;
 
         [SerializeField]
         [HideInInspector]
@@ -165,7 +192,6 @@ namespace Dreamteck.Splines
             Vector3 direction = Vector3.right;
             switch (velocityHandleMode)
             {
-                  
                 case VelocityHandleMode.Preserve: idealVelocity = velocity; break;
                 case VelocityHandleMode.Align:
                     direction = _splineResult.forward;
@@ -176,31 +202,19 @@ namespace Dreamteck.Splines
                     if (Vector3.Dot(velocity, direction) < 0f) direction *= -1f;
                     idealVelocity = direction * velocity.magnitude * Vector3.Dot(velocity.normalized, direction); break;
             }
-
-            if (applyPositionX)
-            {
-                velocity.x = idealVelocity.x;
-            }
+            if (applyPositionX) velocity.x = idealVelocity.x;
             if (applyPositionY) velocity.y = idealVelocity.y;
-            if (applyPositionZ)
-            {
-                Debug.Log("VAR");
-                velocity.z = idealVelocity.z;
-            }
+            if (applyPositionZ) velocity.z = idealVelocity.z;
             return velocity;
         }
 
         private Vector3 GetPosition(Vector3 inputPosition)
         {
-            
             position = _splineResult.position;
             Vector2 finalOffset = _offset;
             //if (customOffset != null) finalOffset += customOffset.Evaluate(_splineResult.percent);
             if (finalOffset != Vector2.zero) position += _splineResult.right * finalOffset.x * _splineResult.size + _splineResult.up * finalOffset.y * _splineResult.size;
-            if (applyPositionX)
-            {
-                inputPosition.x = position.x;
-            }
+            if (applyPositionX) inputPosition.x = position.x;
             if (applyPositionY) inputPosition.y = position.y;
             if (applyPositionZ) inputPosition.z = position.z;
             return inputPosition;
@@ -210,7 +224,6 @@ namespace Dreamteck.Splines
         {
             rotation = Quaternion.LookRotation(_splineResult.forward * (direction == Spline.Direction.Forward ? 1f : -1f), _splineResult.up);
             if (_rotationOffset != Vector3.zero) rotation = rotation * Quaternion.Euler(_rotationOffset);
-            //if (customRotation != null) rotation = customRotation.Evaluate(rotation, _splineResult.percent);
             if (!applyRotationX || !applyRotationY)
             {
                 Vector3 euler = rotation.eulerAngles;
@@ -229,6 +242,17 @@ namespace Dreamteck.Splines
             if (applyScaleY) inputScale.y = _baseScale.y * _splineResult.size;
             if (applyScaleZ) inputScale.z = _baseScale.z * _splineResult.size;
             return inputScale;
+        }
+
+        public void OnBeforeSerialize()
+        {
+            
+        }
+
+        public void OnAfterDeserialize()
+        {
+            _hasRotationOffset = _rotationOffset != Vector3.zero;
+            _hasOffset = _offset != Vector2.zero;
         }
     }
 }

@@ -54,7 +54,10 @@ namespace Dreamteck.Splines.Editor
 
         protected virtual void Repaint()
         {
-            if (repaintHandler != null) repaintHandler();
+            if (repaintHandler != null)
+            {
+                repaintHandler();
+            }
         }
 
         public virtual void UndoRedoPerformed()

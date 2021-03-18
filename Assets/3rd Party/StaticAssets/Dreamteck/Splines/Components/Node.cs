@@ -254,7 +254,7 @@ namespace Dreamteck.Splines
             }
         }
 
-        private void UpdatePoints()
+        public void UpdatePoints()
         {
             for (int i = connections.Length - 1; i >= 0; i--)
             {

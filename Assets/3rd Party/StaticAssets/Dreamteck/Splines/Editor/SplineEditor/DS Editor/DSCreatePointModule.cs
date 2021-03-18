@@ -47,7 +47,15 @@ namespace Dreamteck.Splines.Editor
             {
                 Vector2 first = HandleUtility.WorldToGUIPoint(points[0].position);
                 Vector2 last = HandleUtility.WorldToGUIPoint(points[points.Length - 1].position);
-                if (Vector2.Distance(first, last) <= 20f) if (EditorUtility.DisplayDialog("Close spline?", "Do you want to make the spline path closed ?", "Yes", "No")) closeSpline = true;
+                if (Vector2.Distance(first, last) <= 20f)
+                {
+                    if (EditorUtility.DisplayDialog("Close spline?", "Do you want to make the spline path closed ?", "Yes", "No"))
+                    {
+                        closeSpline = true;
+                        SceneView.currentDrawingSceneView.Focus();
+                        SceneView.RepaintAll();
+                    }
+                }
             }
 
             if (appendMode == AppendMode.End)
@@ -57,10 +65,19 @@ namespace Dreamteck.Splines.Editor
 
             if (createNode)
             {
-                if (appendMode == 0) CreateNodeForPoint(0);
-                else CreateNodeForPoint(points.Length - 1); 
+                if (appendMode == 0)
+                {
+                    CreateNodeForPoint(0);
+                }
+                else
+                {
+                    CreateNodeForPoint(points.Length - 1);
+                }
             }
-            if (closeSpline) editor.isClosed = true;
+            if (closeSpline)
+            {
+                editor.isClosed = true;
+            }
             dsEditor.UpdateSpline();
             if (appendMode == AppendMode.Beginning) spline.ShiftNodes(0, spline.pointCount-1, 1);
         }
@@ -108,7 +125,7 @@ namespace Dreamteck.Splines.Editor
             Node node = obj.AddComponent<Node>();
             node.transform.localRotation = Quaternion.identity;
             node.transform.position = points[index].position;
-            node.AddConnection(dsEditor.spline, index);
+            dsEditor.spline.ConnectNode(node, index);
         }
     }
 }
