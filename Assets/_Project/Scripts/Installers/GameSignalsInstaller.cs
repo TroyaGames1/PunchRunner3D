@@ -22,9 +22,9 @@ namespace Installers
 
         private void InstallStateSignals() //TODO
         {
-            Container.DeclareSignal<StartSignal>().OptionalSubscriber(); 
+            Container.DeclareSignal<SignalGameStart>().OptionalSubscriber(); 
             Container.DeclareSignal<SignalPlayerFailed>().OptionalSubscriber();
-            Container.DeclareSignal<CompleteSignal>().OptionalSubscriber();
+            Container.DeclareSignal<SignalGameFinished>().OptionalSubscriber();
         }
 
     }

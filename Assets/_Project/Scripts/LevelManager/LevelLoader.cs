@@ -22,7 +22,7 @@ public class LevelLoader: IInitializable
          
         if (SceneManager.GetActiveScene().buildIndex==_currentLevel)
         {
-            _signal.Fire<StartSignal>();
+            _signal.Fire<SignalGameStart>();
             return;
         }
         SceneManager.LoadScene(_currentLevel);

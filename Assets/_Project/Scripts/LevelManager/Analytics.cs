@@ -1,10 +1,7 @@
-﻿using System;
-using UnityEngine;
-using System.Collections;
-#if STORE_BUILD
-using Facebook.Unity;
+﻿using UnityEngine;
+
 using GameAnalyticsSDK;
-#endif
+
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -17,7 +14,7 @@ public class Analytics : MonoBehaviour
         PlayerPrefs.SetInt("CurrentLevel",SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.Save();
     }
-#if STORE_BUILD
+
     void Awake()
     {  
 
@@ -26,33 +23,16 @@ public class Analytics : MonoBehaviour
         {
             Application.targetFrameRate = 60;
         }
-        FB.Init(FBInitCallback);
         GameAnalytics.Initialize();
     }
-    private void FBInitCallback()
-    {
-        if (FB.IsInitialized)
-        {
-            FB.ActivateApp();
-        }
-    }
-    public void OnApplicationPause(bool paused)
-    {
-        if (!paused)
-        {
-            if (FB.IsInitialized)
-            {
-                FB.ActivateApp();
-            }
-        }
-    }
+   
 
   
     private void LoadAnalyticSignals()
     {
-        _signal.Subscribe<StartSignal>(StartSignal);
-        _signal.Subscribe<FailSignal>(FailSignal);
-        _signal.Subscribe<CompleteSignal>(FinishSignal);
+        _signal.Subscribe<SignalGameStart>(StartSignal);
+        _signal.Subscribe<SignalPlayerFailed>(FailSignal);
+        _signal.Subscribe<SignalGameFinished>(FinishSignal);
     }
 
     private void StartSignal()
@@ -70,7 +50,6 @@ public class Analytics : MonoBehaviour
            PlayerPrefs.GetInt("CurrentLevel").ToString(),
            "Level_Progress");  
        
-       Debug.Log($"Level {SceneManager.GetActiveScene().buildIndex} Failed");
 
     }
     private void FinishSignal()
@@ -80,5 +59,4 @@ public class Analytics : MonoBehaviour
           PlayerPrefs.GetInt("CurrentLevel").ToString(),
           "Level_Progress");
     }
-#endif  
 }

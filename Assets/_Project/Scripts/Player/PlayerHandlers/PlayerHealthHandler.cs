@@ -47,9 +47,9 @@ namespace PlayerBehaviors
             {
                
                 settingsHand.gameObject.transform.localScale += new Vector3(value, value, value);
-                if (settingsHand.gameObject.transform.localScale.x>2)
+                if (settingsHand.gameObject.transform.localScale.x>2.2f)
                 {
-                    settingsHand.gameObject.transform.localScale = new Vector3(2, 2, 2);
+                    settingsHand.gameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 
                 }
             }

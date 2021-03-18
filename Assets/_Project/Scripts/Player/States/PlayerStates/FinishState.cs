@@ -12,7 +12,7 @@ namespace PlayerState
     {
         private readonly UIManager _uıManager;
         readonly SignalBus _signalBus;
-        private PlayerAnimationHandler _animationHandler;
+        private readonly PlayerAnimationHandler _animationHandler;
         private float vars = 0;
         public FinishState(UIManager uıManager, SignalBus signalBus, PlayerAnimationHandler animationHandler)
         {
@@ -27,6 +27,8 @@ namespace PlayerState
                 .Subscribe(x=>_uıManager.finishGameUI.SetActive(true));
             _signalBus.AbstractFire
                 (new SignalChangeSpeedMovementFactorAndAnimation("FinalFinish", 0, 0));
+            
+            _signalBus.Fire<SignalGameFinished>();
         }
 
         public void ExitState()

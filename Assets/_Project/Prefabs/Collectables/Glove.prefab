@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9713c242cc613c94fa9579689c3c2058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealtValue: 0.1
+  HealtValue: 0.15
   _canDestroyable: 1
 --- !u!114 &1670807585
 MonoBehaviour:

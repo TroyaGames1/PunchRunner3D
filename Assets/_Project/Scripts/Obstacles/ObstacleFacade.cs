@@ -68,7 +68,7 @@ public class ObstacleFacade : MonoBehaviour
                 if (_currentHitTime <= 0)
                 {
                     TakeDamage();
-                    _signalBus.Fire(new SignalPlayerHit(-0.1f));
+                    _signalBus.Fire(new SignalPlayerHit(-0.15f));
                     _signalBus.Fire(new SignalDoShake());
                     _currentHitTime = _settings.defaultHitTime;
                 }
@@ -109,7 +109,7 @@ public class ObstacleFacade : MonoBehaviour
     }
 
     private bool CanTakeHit=>
-        _canCheckRaycast && Physics.Raycast(transform.position, transform.forward,3 , _settings.HitLayerMask);
+         Physics.Raycast(transform.position, transform.forward,1.4f , _settings.HitLayerMask);
     
 
 

@@ -1,3 +1,3 @@
-﻿public struct StartSignal{}
+﻿public struct SignalGameStart{}
 public struct SignalPlayerFailed{}
-public struct CompleteSignal{}
+public struct SignalGameFinished{}
